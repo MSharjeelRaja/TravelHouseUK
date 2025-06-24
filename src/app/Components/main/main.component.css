@@ -1,0 +1,19 @@
+.blue {
+  background-color: white;
+  color: #2563eb !important;
+}
+.nav-button{
+color: blue;
+display: flex;
+gap: 10px;
+text-decoration: none;
+align-items: center;
+padding: 6px;
+border-radius: 4px;
+  .icon{
+  width: 25px;
+}
+
+}.active{
+  background-color: white;
+}

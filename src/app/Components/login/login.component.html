@@ -1,0 +1,91 @@
+<app-loader *ngIf="loader()"></app-loader>
+<div  class="loginContainer d-flex justify-content-center align-items-center">
+  <div class="login-wrapper d-flex">
+    <section
+      class="login-form col-md-5 d-flex flex-column align-items-center justify-content-center"
+    >
+      <header class="header-logo mb-3 mt-3">
+        <img src="logo/Logo.png" alt="" />
+      </header>
+      <h2 class="heading text-center ">Welcome to the TH-UK CMS</h2>
+      <p class="text-center mb-4">
+        Access your content management dashboard by securely logging in. Please
+        enter your credentials to manage, edit, and publish your content with
+        ease.
+      </p>
+      <form autocomplete="off" [formGroup]="loginForm">
+        <div class="email-wrapper d-flex flex-column">
+          <label for="email">Email</label>
+          <input
+            formControlName="email"
+            class="form-control invalid input-control"
+            [ngClass]="{
+              invalid:
+                loginForm.get('email')?.touched &&
+                loginForm.get('email')?.invalid
+            }"
+            type="email"
+            name="email"
+            placeholder="Enter your Email here."
+          />
+          <small class="text-danger">
+            <span
+              *ngIf="loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.touched"
+              >Email is required.</span
+            >
+            <span *ngIf=" loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['email']"
+              >Enter a valid email.</span
+            >
+          </small>
+        </div>
+        <div class="email-wrapper d-flex flex-column position-relative">
+          <label for="password">Password</label>
+          <input
+            formControlName="password"
+            class="form-control input-control"
+            [ngClass]="{
+              invalid:
+                loginForm.get('password')?.touched &&
+                loginForm.get('password')?.invalid
+            }"
+            type="{{ hidePassword ? 'password' : 'text' }}"
+            name="password"
+            placeholder="Enter your password here."
+          />
+          <i
+    class="bi toggle-password"*ngIf="!loginForm.get('password')?.invalid"
+    [ngClass]="hidePassword ? 'bi-eye' : 'bi-eye-slash'"
+    (click)="hidePassword = !hidePassword"
+    style="position: absolute; right: 1rem; top: 1.8rem; cursor: pointer; color: #64748b;"
+  ></i>
+          <small class="text-danger ">
+            <span
+              *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']"
+              >Password is required.</span
+            >
+            <span *ngIf=" loginForm.get('password')?.touched &&loginForm.get('password')?.errors?.['minlength']"
+              >Password must be at least 6 characters.</span
+            >
+          </small>
+        </div>
+        <div class="mb-4 form-check">
+          <input type="checkbox" class="form-check-input" id="rememberMe" />
+          <label class="form-check-label" for="rememberMe">Remember Me</label>
+        </div>
+
+        <button
+          class="btn btn-primary"
+          (click)="login()"
+          [disabled]="loginForm.invalid"
+        >
+          Log In
+        </button>
+      </form>
+    </section>
+    <section class="image-container col-md-7">
+      <div class="image-wrapper">
+        <img src="login/Plane.png" class="image" alt="" />
+      </div>
+    </section>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+
+.dialog-content{
+width: 500px;
+text-align: center;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 28px 80px;
+}
+.header{
+  font-weight: bold;
+  font-size: 20px;
+}
+.error-icon{
+  width: 80px;
+  height: 80px;
+}
+p{
+  font-size: 14px;
+}
+.btn{
+  background-color: #5b57f4;
+  width: 90%;
+  border-radius: 5px;
+  height: 35px;
+  color: white;
+}

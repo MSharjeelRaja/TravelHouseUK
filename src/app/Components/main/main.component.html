@@ -1,0 +1,61 @@
+
+
+<mat-sidenav-container style="height: 100vh;">
+
+
+<mat-sidenav mode="side" opened style="width: 220px;">
+  <div class="d-flex flex-column p-3 bg-blue-600 h-100">
+
+   <a
+  routerLink="/login"
+  routerLinkActive="active"
+  [routerLinkActiveOptions]="{ exact: true }"
+  class="nav-button"
+  #rlaLogin="routerLinkActive"
+>
+  <img
+       [src]="rlaLogin.isActive ? 'logo/c.png' : 'logo/cc.png'"
+    alt="overview"
+    class="icon"
+  />
+ Overview
+</a>
+<span class="text-white my-2 font-medium ">Content Managemt</span>
+<a
+  routerLink="/main/discount"
+  routerLinkActive="active"
+  [routerLinkActiveOptions]="{ exact: true }"
+  class="nav-button"
+  #rlaDiscount="routerLinkActive"
+>
+  <img
+    [src]="rlaDiscount.isActive ? 'next.jpeg' : 'w.jpeg'"
+    alt="Discount"
+    class="icon"
+
+  />
+  Discount
+</a>
+<a
+  routerLink="/main/faq"
+  routerLinkActive="active"
+  [routerLinkActiveOptions]="{ exact: true }"
+  class="nav-button"
+  #rlaDiscount="routerLinkActive"
+>
+  <img
+    [src]="rlaDiscount.isActive ? 'next.jpeg' : 'w.jpeg'"
+    alt="faq"
+    class="icon"
+
+  />
+FAQ
+</a>
+
+  </div>
+</mat-sidenav>
+
+  <mat-sidenav-content class="app-content p-4">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
