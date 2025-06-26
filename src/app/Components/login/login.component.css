@@ -116,3 +116,7 @@ button.mat-button.bg-white {
     display: none;
   }
 }
+.text-danger {
+  min-height: 18px;
+  display: block;
+}

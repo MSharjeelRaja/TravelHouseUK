@@ -1,1 +1,65 @@
-<p>discounts works!</p>
+<div class="container">
+  <app-loader *ngIf="loader"></app-loader>
+  <div class="headerWrapper">
+    <div class="header">
+      <span class="heading fw-bold">Discounts</span>
+      <span class="subheading d-block"
+        >Manage promotional discounts for flights and destinations</span
+      >
+    </div>
+    <button class="btns" (click)="adddiscount()">+ Add New Discount</button>
+  </div>
+  <div class="discountContainer">
+    <div class="tabelContainer">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Code</th>
+            <th scope="col">Target Location</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Valid Until</th>
+            <th scope="col">Usage Limit</th>
+            <th scope="col">Availed Discounts</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of discounts()">
+            <th>{{ item.name }}</th>
+            <th>{{ item.code }}</th>
+            <th>{{ item.targetUsers }}</th>
+            <th>{{ item.discountAmount }}</th>
+            <th>{{ item.validTo |date}}</th>
+            <th>{{ item.limit }}</th>
+            <th>{{ item.usedCount }}</th>
+<th>
+
+    <span  class="status" [ngClass]="{ 'active': item.status === 'Active', 'inActive': item.status !== 'Active' }"> {{ item.status }}</span>
+
+
+</th>
+
+            <th>  <div class="options d-flex gap-2">
+              <img
+                width="16"
+                class="img"
+                (click)="edit(item)"
+                src="/logo/edit.png"
+                alt=""
+              />
+              <img
+                width="16"
+                class="img"
+                (click)="sendNotification(item.id)"
+                src="/logo/bins.png"
+                alt=""
+              />
+            </div></th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

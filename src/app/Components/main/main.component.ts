@@ -16,7 +16,7 @@ import { LoaderComponent } from '../loader/loader.component';
     MatButtonModule,
     MatListModule,
     MatIconModule,
-    CommonModule,
+    CommonModule,MatIconModule,
     RouterModule, RouterOutlet, RouterLinkActive,
 
 ],
@@ -25,5 +25,5 @@ import { LoaderComponent } from '../loader/loader.component';
 })
 export class MainComponent {
 
-  constructor(public router: Router) {}
+  constructor(public router: Ruter) {}
 }

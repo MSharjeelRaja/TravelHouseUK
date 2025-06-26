@@ -1,0 +1,94 @@
+.formContainer{
+  background-color: white;
+  padding: 30px 60px;
+  border-radius: 30px;
+
+}
+.Form{
+
+.formHeaders{
+  text-align: center;
+  margin-bottom: 20px;
+}
+h2{
+  font-size: 23px;
+  font-weight: 600;
+  margin: 0;
+}
+span{
+  font-size: 14px;
+}
+
+.input-control {
+  padding: 7px 12px;
+  font-size: 13px;
+  width: 430px;
+
+margin: 3px 0px;
+
+}
+.input-control:focus{
+
+  box-shadow: none !important;
+border-color: rgb(222, 226, 230);
+}
+}
+.email-wrapper {
+ margin-bottom: 3px;
+}
+label{
+  font-size: 13px;
+  margin-bottom: 3px;
+}
+.invalid{
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+background-repeat: no-repeat;
+background-position: right 10px center;
+background-size: 1rem;
+border-color: rgb(220, 53, 69);
+}
+.rotate {
+  transform: rotate(180deg);
+}
+.form-check label {
+  font-size: 13px;
+  margin-top: 4px;
+font-weight: 400;
+  color: black;
+}
+.form-check-input {
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+}
+.form-check-input:checked {
+  background-color: #5b57f4;
+  border-color: #5b57f4;
+}
+.text-danger span{
+  font-size: 13px;
+  font-weight: 400;
+
+
+
+
+}
+.text-danger {
+  min-height: 18px;
+  display: block;
+}
+
+
+.btn {
+  width: 100%;
+  background-color: #5B57F4;
+}
+
+
+button.mat-button.bg-white {
+  color: #2563eb !important;
+}
+@media(max-width: 768px) {
+
+
+}

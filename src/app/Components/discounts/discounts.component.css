@@ -1,0 +1,91 @@
+.container {
+  padding: 15px;
+
+  height: 100%;
+}
+
+.headerWrapper {
+  display: flex;
+
+  margin-top: 1rem;
+  margin-bottom: 24px;
+  align-items: center;
+  justify-content: space-between;
+}
+.header {
+  .heading {
+    font-size: 21px;
+    letter-spacing: -0.5px;
+  }
+  .subheading {
+    font-size: 14px;
+    color: #64748b;
+  }
+}
+
+.btns {
+  background-color: #de1054;
+  padding: 0.4rem 0.9rem;
+  font-size: 15px;
+  gap: 5px;
+  color: white;
+  border-radius: 0.5rem;
+  height: 35px;
+  border: none;
+}
+.discountContainer{
+border:1px solid #E2E8F0;
+margin: 16px 0px;
+border-radius: 12px;
+
+}
+.table {
+  font-size: 13px;
+  font-weight: 100;
+
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+border:1px solid #eaf1fb;
+  border-radius: 10px;
+
+
+}
+thead th{
+  color: #64748b;
+  vertical-align:middle;
+  padding: 19px 12px;
+  text-align: left;
+  font-size: 14px;
+font-weight: 400!important;
+      border-bottom: 1px solid #eaf1fb;
+}
+tbody th{
+font-size: 13px;
+  font-weight: 400;
+color:  rgb(33, 37, 41);
+padding: 16px 12px;
+text-align: start;
+
+}
+.tabelContainer {
+padding: 24px;
+}
+.status{
+  font-weight: 600;
+    border-radius: 16px;
+    padding: 4px 16px;
+}
+.inActive{
+
+
+    color: rgb(250, 173, 20);
+    background-color: rgb(255, 247, 219);
+
+}
+.active{
+  color: rgb(30, 215, 96);
+    background-color: rgb(234, 255, 234);
+}

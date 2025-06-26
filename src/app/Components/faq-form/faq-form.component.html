@@ -1,0 +1,90 @@
+<div class="formContainer">
+  <app-loader *ngIf="loader"></app-loader>
+  <form autocomplete="off" [formGroup]="faqform" class="Form">
+    <div class="formHeaders">
+      <h2>Details for FAQ</h2>
+      <span>Please enter the required detail to add new FAQ.</span>
+    </div>
+
+
+    <div class="email-wrapper d-flex flex-column">
+      <label for="email">Enter Question</label>
+      <input
+
+        formControlName="email"
+        class="form-control input-control"
+        [ngClass]="{
+          invalid: faqform.get('email')?.touched && faqform.get('email')?.invalid
+        }"
+        type="email"
+        name="email"
+        placeholder="Enter Question"
+      />
+      <small class="text-danger">
+        <span *ngIf="faqform.get('email')?.errors?.['required'] && faqform.get('email')?.touched">
+          Question is required.
+        </span>
+
+      </small>
+    </div>
+
+
+  <div class="email-wrapper d-flex flex-column position-relative">
+  <label for="category">Select Category</label>
+
+  <select
+    formControlName="category"
+    class="form-control input-control"
+    (click)="isRotated = !isRotated"
+    [ngClass]="{
+      invalid: faqform.get('category')?.touched && faqform.get('category')?.invalid
+    }"
+  >
+    <option value="" disabled selected>Select Category</option>
+    <option  (click)="isRotated = !isRotated" *ngFor="let cat of categories" [value]="cat.name">{{ cat.name }}</option>
+  </select>
+
+  <img
+    class="faq-arrow"
+    src="https://assets-dev.travelhouseuk.co.uk/assets/images/push-notifications/chevron-down.svg"
+    [class.rotate]="isRotated"
+    style="position: absolute; right: 20px; top: 36px; pointer-events: none;"
+  >
+
+
+  <small class="text-danger">
+    <span *ngIf="faqform.get('category')?.errors?.['required'] && faqform.get('category')?.touched">
+      Category is required.
+    </span>
+  </small>
+</div>
+
+
+    <div class="email-wrapper d-flex flex-column">
+      <label for="answer">Answer</label>
+      <textarea
+        formControlName="answer"
+        rows="4"
+        class="form-control input-control"
+        [ngClass]="{
+          invalid: faqform.get('answer')?.touched && faqform.get('answer')?.invalid
+        }"
+        placeholder="Type your answer here..."
+      ></textarea>
+      <small class="text-danger">
+        <span *ngIf="faqform.get('answer')?.errors?.['required'] && faqform.get('answer')?.touched">
+          Answer is required.
+        </span>
+      </small>
+    </div>
+
+
+    <button
+      class="btn btn-primary"
+      (click)="submitclick()"
+      [disabled]="faqform.invalid"
+    >
+      Submit FAQ
+    </button>
+  </form>
+</div>
