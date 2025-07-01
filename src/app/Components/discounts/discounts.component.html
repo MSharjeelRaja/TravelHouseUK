@@ -7,7 +7,7 @@
         >Manage promotional discounts for flights and destinations</span
       >
     </div>
-    <button class="btns" (click)="adddiscount()">+ Add New Discount</button>
+    <button class="btns" (click)="addDiscount()">+ Add New Discount</button>
   </div>
   <div class="discountContainer">
     <div class="tabelContainer">
@@ -26,7 +26,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of discounts()">
+          <tr *ngFor="let item of paginatedDiscounts()">
             <th>{{ item.name }}</th>
             <th>{{ item.code }}</th>
             <th>{{ item.targetUsers }}</th>
@@ -45,7 +45,7 @@
               <img
                 width="16"
                 class="img"
-                (click)="edit(item)"
+                (click)="addDiscount(item)"
                 src="/logo/edit.png"
                 alt=""
               />
@@ -53,13 +53,36 @@
                 width="16"
                 class="img"
                 (click)="sendNotification(item.id)"
-                src="/logo/bins.png"
+                src="/logo/speaker.png"
                 alt=""
               />
             </div></th>
           </tr>
         </tbody>
       </table>
+        <div class="custom-paginator">
+    <div class="pagination-info">
+      Showing {{ showingStart() }} - {{ showingEnd() }} of
+      {{ totalRecords() }} records
     </div>
+    <div class="pagination-buttons">
+      <button
+        class="ShuffleBtn"
+        [disabled]="currentPage() === 0"
+        (click)="prevPage()"
+      >
+        <mat-icon class="icon">chevron_left</mat-icon>
+      </button>
+      <button
+        class="ShuffleBtn"
+        [disabled]="(currentPage() + 1) * pageSize >= totalRecords()"
+        (click)="nextPage()"
+      >
+        <mat-icon class="icon">chevron_right</mat-icon>
+      </button>
+    </div>
+  </div>
+    </div>
+
   </div>
 </div>

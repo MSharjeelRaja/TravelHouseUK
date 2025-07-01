@@ -118,11 +118,25 @@
       </header>
       <div class="profile">
          <img src="/login/Plane.png" alt="" />
-        <button>
+        <button (click)="showOptions=!showOptions">
 
-        <mat-icon class="profile-icon">expand_more</mat-icon>
+        <mat-icon class="profile-icon" >expand_more</mat-icon>
 
         </button>
+       <ul *ngIf="showOptions" class="options-dropdown">
+    <li>
+      <mat-icon class="option-icon">lock</mat-icon>
+      Change Password
+    </li>
+
+      <hr class="line">
+
+  <li [routerLink]="['/auth/login', 'logout']">
+  <mat-icon class="option-icon">logout</mat-icon>
+  Logout
+</li>
+
+  </ul>
       </div>
     </nav>
 

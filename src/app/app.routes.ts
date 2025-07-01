@@ -11,12 +11,20 @@ export const routes: Routes = [
     path: 'main',
     component: MainComponent,
     children: [
+       { path: '', redirectTo: 'faq', pathMatch: 'full' },
       { path: 'discount', component: DiscountsComponent },
       { path: 'faq', component: FaqComponent },
     ],
   },
   {
     path: 'auth/login',
+    loadComponent: () =>
+      import('./Components/login/login.component').then(
+        (m) => m.LoginComponent
+      ),
+  },
+   {
+    path: 'auth/login/:action',
     loadComponent: () =>
       import('./Components/login/login.component').then(
         (m) => m.LoginComponent

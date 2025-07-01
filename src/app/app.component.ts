@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { LoginComponent } from "./Components/login/login.component";
 import { PopUpComponent } from "./Components/pop-up/pop-up.component";
 
@@ -15,5 +15,13 @@ import { PopUpComponent } from "./Components/pop-up/pop-up.component";
 })
 export class AppComponent {
   title = 'TravelHouseUK';
+  constructor(private router:Router){}
+ngOnInit(){
+  const saved = localStorage.getItem('rememberedUser');
+  if (saved) {
+   this.router.navigate(['/main']);
 
+
+  }
+}
 }

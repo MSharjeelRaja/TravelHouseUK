@@ -1,6 +1,35 @@
-   <div class="dialog-content d-flex flex-column justify-content-center align-items-center gap-1">
-      <img src="https://assets-dev.travelhouseuk.co.uk/assets/images/alert-images/error-icon.svg" alt="Error" class="error-icon" />
-      <h2 class="header">Error</h2>
-      <p>Invalid email or password!</p>
-      <button  color="primary" mat-dialog-close class="btn ">OK</button>
-    </div>
+<div
+  class="dialog-content d-flex flex-column justify-content-center align-items-center gap-1"
+>
+  <ng-container *ngIf="Type == 'error'">
+    <img
+      src="https://assets-dev.travelhouseuk.co.uk/assets/images/alert-images/error-icon.svg"
+      alt="Error"
+      class="error-icon"
+    />
+
+    <h2 class="header">{{alertType}}</h2>
+    <p>{{message}}</p>
+    <button color="primary" mat-dialog-close class="btn">OK</button>
+
+  </ng-container>
+  <ng-container *ngIf="Type == 'success'">
+    <img src="/logo/success-icon.svg" alt="Error" class="error-icon" />
+
+    <h2 class="header">Success</h2>
+    <p>Saved successfully!</p>
+    <button color="primary" mat-dialog-close class="btn">OK</button>
+
+  </ng-container>
+   <ng-container *ngIf="Type == 'confirm'">
+    <img src="/logo/ask-image.png" alt="Error" class="error-icon" />
+
+    <h2 class="header">Confirm Deletion
+</h2>
+    <p>Are you sure you want to delete?</p>
+ <div class="btns">
+<button color="primary" (click)="deleteFaq()" class="btn">Delete</button>
+<button color="primary" mat-dialog-close class="btn cancelBtn">Cancel</button>
+</div>
+   </ng-container>
+</div>

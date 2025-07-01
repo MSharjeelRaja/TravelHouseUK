@@ -1,67 +1,357 @@
 import { LoginService } from './../../Services/login.service';
-import { AfterViewInit, Component, OnInit, signal } from '@angular/core';
-import { LoaderComponent } from "../loader/loader.component";
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Inject,
+  OnInit,
+  signal,
+  ViewChild,
+} from '@angular/core';
+import { LoaderComponent } from '../loader/loader.component';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatIcon } from '@angular/material/icon';
-import { ViewChild, ElementRef } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {
+  NativeDateAdapter,
+  provideNativeDateAdapter,
+} from '@angular/material/core';
+import { PopUpComponent } from '../pop-up/pop-up.component';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-faq-form',
-  imports: [LoaderComponent,CommonModule,ReactiveFormsModule,MatIcon],
+
+  imports: [
+    LoaderComponent,
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+  ],
   templateUrl: './faq-form.component.html',
-  styleUrl: './faq-form.component.css'
+  standalone: true,
+  styleUrl: './faq-form.component.css',
 })
 export class FaqFormComponent implements OnInit, AfterViewInit {
-isRotated=false
-loader: boolean = true;
-faqform: FormGroup;
+  isRotated = false;
+  loader: boolean = true;
+  formType: string = '';
+  updateMode = false;
+  isRotatedStatus = false;
+  isRotatedCity = false;
+  isRotatedContinent = false;
+  isRotatedCountry = false;
 
- ngAfterViewInit() {
-    setTimeout(() => {
-      // Reset the form state after blurring
-      if (document.activeElement instanceof HTMLElement) {
-        document.activeElement.blur();
+
+  faqform!: FormGroup;
+  discountForm!: FormGroup;
+  notificationForm!: FormGroup;
+  updateData = {};
+  categories: { name: string; id: number }[] = [];
+  targetUsers: { name: string; id: number }[] = [];
+  cities = ['London', 'Manchester', 'Birmingham', 'Leeds'];
+  continents = ['Europe', 'Asia', 'Africa', 'America'];
+  countries = ['UK', 'France', 'Germany', 'USA'];
+
+  constructor(
+    private fb: FormBuilder,
+    private service: LoginService,
+        private router: Router,
+    private dialog: MatDialog,
+    private dialogRef: MatDialogRef<FaqFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
+  selectedFileName: string = '';
+
+  @ViewChild('fileInput') fileInput!: ElementRef;
+
+  ngOnInit() {
+    this.formType = this.data?.formType || '';
+    this.updateData = this.data?.updateItem || '';
+    if (this.updateData) {
+      this.updateMode = true;
+    }
+    console.log(JSON.stringify(this.updateData));
+    if (this.formType === 'faq') {
+      this.faqform = this.fb.group({
+        question: ['', [Validators.required]],
+        category: ['', [Validators.required]],
+        answer: ['', Validators.required],
+      });
+      if (this.updateData) {
+        this.faqform.patchValue({
+          question: this.data.updateItem.question,
+          answer: this.data.updateItem.answer,
+          category: this.data.category,
+        });
       }
+    } else if (this.formType === 'discount') {
+      this.discountForm = this.fb.group({
+        planName: ['', [Validators.required]],
+        code: ['', [Validators.required]],
+        targetUsers: ['', [Validators.required]],
+        status: ['', [Validators.required]],
+        usageLimit: ['', [Validators.required]],
+        amount: ['', [Validators.required]],
+        validTo: ['', [Validators.required]],
+        continent: [''],
+        country: [''],
+        city: [''],
 
+        email: [''],
+      });
+      this.discountForm.get('targetUsers')?.valueChanges.subscribe(() => {
+        this.onTargetUserChange();
+      });
 
-      this.faqform.markAsUntouched();
-      this.faqform.markAsPristine();
+      if (this.updateData) {
+        this.discountForm.patchValue({
+          planName: this.data.updateItem.name,
+          code: this.data.updateItem.code,
+          targetUsers: this.data.updateItem.targetUsers,
+          status: this.data.updateItem.status,
+          usageLimit: this.data.updateItem.limit,
+          amount: this.data.updateItem.discountAmount,
+          validTo: this.data.updateItem.validTo,
+           continent: this.data.updateItem.continent,
 
-
-    });
-  }
-constructor(private fb: FormBuilder,private service:LoginService) {
-  this.faqform = this.fb.group({
-    email: ['', [Validators.required]],
-  category: ['', [Validators.required]],
-  answer: ['', Validators.required]
-  });
-}
-categories: { name: string; id: number }[] = [];
-  ngOnInit(){
-      this.service.getFaqs().subscribe({
+        country: this.data.updateItem.country,
+        city: this.data.updateItem.city,
+        email:this.data.updateItem.email
+        });
+      }
+    } else if (this.formType === 'notification') {
+      this.notificationForm = this.fb.group({
+        title: ['', [Validators.required]],
+        email: ['', [Validators.required,Validators.email]],
+        message: ['', [Validators.required]],
+        image: [''],
+      });
+    }
+    this.service.getFaqs().subscribe({
       next: (response) => {
         if (response?.data) {
-                this.loader=false
-          this.categories=(
-            response.data.map((item: any) => ({
-              name: item.name,
-              id: item.id,
-
-              }))
-
-          );
+          this.loader = false;
+          this.categories = response.data.map((item: any) => ({
+            name: item.name,
+            id: item.id,
+          }));
         }
       },
       error: (e) => console.error('Error fetching FAQs:', e),
     });
-
-
-
   }
-  submitclick(){
-    alert(this.faqform.value)
-    console.log(JSON.stringify(this.faqform.value) ) }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
+      this.faqform.markAsUntouched();
+      this.faqform.markAsPristine();
+      this.discountForm.markAsUntouched();
+      this.discountForm.markAsPristine();
+    });
+  }
+
+  triggerFileInput() {
+    this.fileInput.nativeElement.click();
+  }
+
+  onImageSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+
+      this.selectedFileName = file.name;
+    }
+  }
+
+  submitFaq() {
+    if (this.faqform.valid) {
+      console.log('FAQ Form Submitted:', this.faqform.value);
+
+    }
+  }
+updateFaq() {
+  this.loader = true;
+
+  if (this.faqform.valid) {
+    const id = this.data?.updateItem?.id ?? 0;
+    const payload = {
+      id:id ,
+      question: this.faqform.get('question')?.value,
+      answer: this.faqform.get('answer')?.value,
+      categoryId: this.categories.find(cat => cat.name === this.faqform.get('category')?.value)?.id || null
+    };
+
+    const resp = this.service.Update(payload);
+
+    resp.subscribe({
+      next: (response) => {
+
+        const popupRef = this.dialog.open(PopUpComponent, {
+          width: '500px',
+          data: {
+            alertType: 'success'
+          }
+        });
+
+        popupRef.afterClosed().subscribe(() => {
+  this.dialogRef.close('refresh');
+        });
+
+        this.loader = false;
+      },
+      error: (error) => {
+        this.loader = false;
+        console.error('API error:', error);
+
+        this.dialog.open(PopUpComponent, {
+          width: '500px',
+          data: {
+            alertType: 'error',
+            message: 'Something went wrong!'
+          }
+        });
+      }
+    });
+  }
+}
 
 
+  onTargetUserChange() {
+    const form = this.discountForm;
+    const target = form.get('targetUsers')?.value;
+
+
+    const fields = ['continent', 'country', 'city', 'email'];
+
+
+    fields.forEach((field) => {
+      const control = form.get(field);
+      if (!control) return;
+      control.clearValidators();
+      control.setValue('');
+      control.markAsUntouched();
+      control.markAsPristine();
+    });
+
+
+    if (target === 'Region-Wise') {
+      ['continent', 'country', 'city'].forEach((field) => {
+        form.get(field)?.setValidators([Validators.required]);
+      });
+    } else if (target === 'Single User') {
+      form.get('email')?.setValidators([Validators.required, Validators.email]);
+    }
+
+
+    fields.forEach((field) => {
+      form.get(field)?.updateValueAndValidity();
+    });
+  }
+private formatDate(date: Date): string {
+  if (!date) return '';
+
+
+  const adjustedDate = new Date(date);
+
+  adjustedDate.setMinutes(adjustedDate.getMinutes() - adjustedDate.getTimezoneOffset());
+
+  return adjustedDate.toISOString();
+}
+
+addUpdateDiscount() {
+  this.loader = true;
+
+  if (this.discountForm.valid) {
+    console.log('Form values:', this.discountForm.value);
+    console.log('CODE BEING SENT:', this.discountForm.get('code')?.value);
+
+    const discount = {
+      id: this.updateMode ? this.data.updateItem.id : 0,
+      discountName: this.discountForm.get('planName')?.value,
+      discountCode: this.discountForm.get('code')?.value,
+      discountAmount: Number(this.discountForm.get('amount')?.value),
+
+validTo: this.formatDate(this.discountForm.get('validTo')?.value),
+
+      usageLimit: Number(this.discountForm.get('usageLimit')?.value),
+      status: this.discountForm.get('status')?.value,
+      targetUsers: this.discountForm.get('targetUsers')?.value,
+      countryName: this.discountForm.get('country')?.value || null,
+      countryCode: this.discountForm.get('country')?.value ?
+                  this.discountForm.get('country')?.value.substring(0, 3).toUpperCase() : null,
+      continentName: this.discountForm.get('continent')?.value || null,
+      continentCode: this.discountForm.get('continent')?.value ?
+                   this.discountForm.get('continent')?.value.substring(0, 3).toUpperCase() : null,
+      cityName: this.discountForm.get('city')?.value || null,
+      cityCode: this.discountForm.get('city')?.value ?
+               this.discountForm.get('city')?.value.substring(0, 3).toUpperCase() : null,
+      email: this.discountForm.get('email')?.value || null
+    };
+
+    console.log('Complete payload being sent:', JSON.stringify(discount, null, 2));
+
+    this.service.addUpdateDiscount(discount).subscribe({
+      next: (response) => {
+        this.loader = false;
+        console.log('Full API response:', response);
+
+        const popupRef = this.dialog.open(PopUpComponent, {
+          width: '500px',
+          data: {
+            alertType: 'success',
+            message: 'Discount saved successfully!'
+          }
+        });
+
+        popupRef.afterClosed().subscribe(() => {
+          this.dialogRef.close('refresh');
+        });
+      },
+      error: (error) => {
+        this.loader = false;
+        console.error('Full error object:', error);
+        console.error('Error status:', error.status);
+        console.error('Error message:', error.message);
+        console.error('Error response:', error.error);
+
+        this.dialog.open(PopUpComponent, {
+          width: '500px',
+          data: {
+            alertType: 'error',
+            message: 'Failed to save discount! ' +
+                     (error.error?.message || error.message || 'Unknown error')
+          }
+        });
+      }
+    });
+  } else {
+    this.loader = false;
+    console.log('Form validation errors:', this.discountForm.errors);
+    Object.values(this.discountForm.controls).forEach(control => {
+      console.log(`Control ${control}:`, control.errors);
+      control.markAsTouched();
+    });
+  }
+}
+
+  sendNotification() {
+    alert('sent Notification from'+this.notificationForm.value.email);
+  }
 }

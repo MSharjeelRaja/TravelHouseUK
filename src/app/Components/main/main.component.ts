@@ -24,6 +24,6 @@ import { LoaderComponent } from '../loader/loader.component';
   styleUrl: './main.component.css'
 })
 export class MainComponent {
-
-  constructor(public router: Ruter) {}
+showOptions:boolean=false
+  constructor(public router: Router) {}
 }

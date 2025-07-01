@@ -45,8 +45,8 @@
         />
         <button
           class="addBtn"
-          (click)="onCategorySubmit()"
-          [disabled]="!categoryInput?.trim()"
+          (click)="addUpdateCategory(selectedCategoryId,categoryInput)"
+          [disabled]="!categoryInput"
         >
           {{ selectedCategoryId ? "Update Category" : "+ Add Category" }}
         </button>
@@ -66,10 +66,10 @@
         <div class="questionsHead">
           <span class="questionheader">{{ item.name }}</span>
           <div class="shuffleBtns">
-            <button class="ShuffleBtn" [disabled]="first">
+            <button class="ShuffleBtn" (click)="shuffle(item.id,item.displayOrder-1)" [disabled]="first">
               <mat-icon class="icon">arrow_upward</mat-icon>
             </button>
-            <button class="ShuffleBtn" [disabled]="last">
+            <button class="ShuffleBtn" (click)="shuffle(item.id,item.displayOrder+1)" [disabled]="last">
               <mat-icon class="icon">arrow_downward</mat-icon>
             </button>
           </div>
@@ -93,7 +93,7 @@
               <img
                 width="16"
                 class="img"
-                (click)="edit(faq)"
+                (click)="addQuestion(faq,item.name)"
                 src="/logo/edit.png"
                 alt=""
               />
@@ -114,7 +114,7 @@
     </div>
   </div>
 
-  <div class="custom-paginator">
+  <div class="custom-paginator" *ngIf="!selectedCategoryId">
     <div class="pagination-info">
       Showing {{ showingStart() }} - {{ showingEnd() }} of
       {{ totalRecords() }} records
@@ -125,14 +125,14 @@
         [disabled]="currentPage() === 0"
         (click)="prevPage()"
       >
-        <mat-icon class="icon">arrow_back</mat-icon>
+        <mat-icon class="icon">chevron_left</mat-icon>
       </button>
       <button
         class="ShuffleBtn"
         [disabled]="(currentPage() + 1) * pageSize >= totalRecords()"
         (click)="nextPage()"
       >
-        <mat-icon class="icon">arrow_forward</mat-icon>
+        <mat-icon class="icon">chevron_right</mat-icon>
       </button>
     </div>
   </div>

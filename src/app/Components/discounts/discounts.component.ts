@@ -1,7 +1,10 @@
-import { Component,  signal } from '@angular/core';
+import { Component,  computed,  signal } from '@angular/core';
 import { LoaderComponent } from "../loader/loader.component";
 import { CommonModule } from '@angular/common';
 import { LoginService } from '../../Services/login.service';
+import { MatIconModule } from '@angular/material/icon';
+import { FaqFormComponent } from '../faq-form/faq-form.component';
+import { MatDialog } from '@angular/material/dialog';
 interface Discount {
   id: number;
   discountAmount: number;
@@ -13,25 +16,37 @@ interface Discount {
   targetUsers:string;
 
   status: string;
+    continent: string;
+     country: string;
+        city: string;
+
 }
 
 @Component({
   selector: 'app-discounts',
-  imports: [LoaderComponent,CommonModule],
+  imports: [LoaderComponent,CommonModule,    MatIconModule],
   templateUrl: './discounts.component.html',
   styleUrl: './discounts.component.css'
 })
 export class DiscountsComponent {
 loader=true;
+currentPage=signal(0)
+
+pageSize=10
 
   discounts = signal<Discount[]>([]);
-constructor(private service:LoginService){}
+  totalRecords=computed(()=>this.discounts().length)
+constructor(private service:LoginService,private dialog:MatDialog){}
   ngOnInit() {
+this.getdiscounts();
 
-    this.service.getdiscounts().subscribe({
+  }
+getdiscounts(){
+   this.service.getdiscounts().subscribe({
       next: (response) => {
         if (response?.data) {
                 this.loader=false
+                console.log(response.data)
           this.discounts.set(
             response.data.map((item: any) => ({
            id: item.id,
@@ -45,24 +60,75 @@ constructor(private service:LoginService){}
   name:item.discountName,
   targetUsers:item.targetUsers,
   status: item.status,
-
+email:item.email,
+continent:item.continentName,
+city:item.cityName,
+country:item.countryName
             }))
           );
         }
       },
       error: (e) => console.error('Error fetching FAQs:', e),
     });
+}
+paginatedDiscounts(){
+  const start=this.currentPage()*this.pageSize;
+  return this.discounts().slice(start,start+this.pageSize)
+}
+nextPage(){
+  this.loader=true;
+  setTimeout(() => {
+     if((this.currentPage()+1)*this.pageSize<this.totalRecords()){
+    this.currentPage.set(this.currentPage()+1)
   }
+  this.loader=false
+  }, 400);
 
-
-
-  adddiscount(){
+}
+prevPage(){
+  this.loader=true;
+  setTimeout(() => {
+     if(this.currentPage()>0){
+    this.currentPage.set(this.currentPage()-1)
 
   }
+  this.loader=false
+  }, 400);
+
+}
+showingStart(){
+return this.totalRecords()===0
+?0:this.currentPage()*this.pageSize}
+showingEnd(){
+  const end=(this.currentPage()+1)*this.pageSize;
+return end > this.totalRecords()? this.totalRecords():end;
+}
+
   sendNotification(id:number){
+this.dialog.open(FaqFormComponent, {
+    data: {
+      formType: 'notification'
 
+    }
+  });
   }
   edit(discount:Discount){
 
   }
+addDiscount(updateItem?: any) {
+ const popUp= this.dialog.open(FaqFormComponent, {
+    data: {
+      formType: 'discount',
+      updateItem: updateItem
+    }
+  });
+  popUp.afterClosed().subscribe((result) => {
+      if (result === 'refresh') {
+        this.getdiscounts();
+      } else {
+        this.loader = false;
+      }
+    });
+}
+
 }

@@ -14,9 +14,17 @@ padding: 28px 80px;
 .error-icon{
   width: 80px;
   height: 80px;
+  margin: 16px 0px;
 }
 p{
   font-size: 14px;
+}
+.btns{
+  display: flex;
+  gap: 20px;
+  .btn{
+    padding: 0px 44px;
+  }
 }
 .btn{
   background-color: #5b57f4;
@@ -24,4 +32,10 @@ p{
   border-radius: 5px;
   height: 35px;
   color: white;
+}
+.cancelBtn{
+  background-color: transparent;
+  color: black;
+  border: .8px solid rgb(116, 119, 127);
+  padding: 0px 24px;
 }
