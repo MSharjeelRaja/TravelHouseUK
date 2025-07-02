@@ -1,5 +1,9 @@
 <mat-sidenav-container style="height: 100vh">
-  <mat-sidenav mode="side" opened style="width: 250px; border-radius: 0px;  border: none;">
+  <mat-sidenav
+    mode="side"
+    opened
+    style="width: 250px; border-radius: 0px; border: none"
+  >
     <div class="sideNav d-flex flex-column h-100">
       <h1 class="header">Dashboard</h1>
       <div class="hLine"></div>
@@ -9,7 +13,7 @@
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
         class="nav-button"
-            style="cursor: pointer;"
+        style="cursor: pointer"
         #rlaLogin="routerLinkActive"
       >
         <img
@@ -22,21 +26,21 @@
       <span class="text-white my-2 font-medium subheader"
         >Content Managemt</span
       >
-      <a  class="nav-button">
+      <a class="nav-button">
         <img [src]="'/logo/notiifcation.png'" alt="notification" class="icon" />
         Push Notifications
       </a>
 
-      <a  class="nav-button">
+      <a class="nav-button">
         <img [src]="'/logo/Component 1.png'" alt="notification" class="icon" />
         Flight Bookings
       </a>
 
-      <a  class="nav-button">
+      <a class="nav-button">
         <img [src]="'/logo/explore.png'" alt="notification" class="icon" />
         Search Records
       </a>
-      <a  class="nav-button">
+      <a class="nav-button">
         <img [src]="'/logo/splash2.png'" alt="notification" class="icon" />
         Splash Screens
       </a>
@@ -50,7 +54,7 @@
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
         class="nav-button"
-            style="cursor: pointer;"
+        style="cursor: pointer"
         #rlaDiscount="routerLinkActive"
       >
         <img
@@ -74,7 +78,7 @@
       <a
         routerLink="/main/discount"
         routerLinkActive="active"
-        style="cursor: pointer;"
+        style="cursor: pointer"
         [routerLinkActiveOptions]="{ exact: true }"
         class="nav-button"
         #rlaDiscount="routerLinkActive"
@@ -93,16 +97,16 @@
       <span class="text-white my-2 font-medium subheader"
         >PAYMENT MANAGMENT</span
       >
-      <a  class="nav-button">
+      <a class="nav-button">
         <img [src]="'/logo/paymnet.png'" alt="Discount" class="icon" />
         Payment Gateways
       </a>
-      <a  class="nav-button">
+      <a class="nav-button">
         <img [src]="'/logo/wallet.png'" alt="Discount" class="icon" />
         Payment Plans
       </a>
       <span class="text-white my-2 font-medium subheader">Settings</span>
-      <a  class="nav-button">
+      <a class="nav-button">
         <img [src]="'/logo/settings.png'" alt="notification" class="icon" />
         General Settings
       </a>
@@ -111,32 +115,28 @@
 
   <mat-sidenav-content class="app-content">
     <nav class="navbar">
-
       <header class="navHeader">
         <img src="logo/Logo.png" alt="" />
         <h2 class="heading text-center">Travelhouse UK Admin</h2>
       </header>
-      <div class="profile">
-         <img src="/login/Plane.png" alt="" />
-        <button (click)="showOptions=!showOptions">
-
-        <mat-icon class="profile-icon" >expand_more</mat-icon>
-
+      <div class="profile" #dropdownContainer>
+        <img src="/login/Plane.png" alt="" />
+        <button (click)="showOptions = !showOptions">
+          <mat-icon class="profile-icon">expand_more</mat-icon>
         </button>
-       <ul *ngIf="showOptions" class="options-dropdown">
-    <li>
-      <mat-icon class="option-icon">lock</mat-icon>
-      Change Password
-    </li>
+        <ul *ngIf="showOptions" class="options-dropdown">
+          <li>
+            <mat-icon class="option-icon">lock</mat-icon>
+            Change Password
+          </li>
 
-      <hr class="line">
+          <hr class="line" />
 
-  <li [routerLink]="['/auth/login', 'logout']">
-  <mat-icon class="option-icon">logout</mat-icon>
-  Logout
-</li>
-
-  </ul>
+          <li [routerLink]="['/auth/login', 'logout']">
+            <mat-icon class="option-icon">logout</mat-icon>
+            Logout
+          </li>
+        </ul>
       </div>
     </nav>
 

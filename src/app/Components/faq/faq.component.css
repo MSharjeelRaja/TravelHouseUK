@@ -80,7 +80,7 @@
   margin-bottom: 6px;
   cursor: pointer;
   padding: 0.4rem 0.6rem;
- width: 211px;
+  width: 211px;
   border-radius: 6px;
 
   &:not(.highlight):hover {
@@ -118,7 +118,7 @@
   border-radius: 0.5rem;
   background-color: #5b57f4;
 }
-.addBtn:disabled{
+.addBtn:disabled {
   background-color: #b0b3d6;
   cursor: not-allowed;
 }
@@ -197,7 +197,7 @@
 }
 .noFaq {
   color: gray;
-text-align: center;
+  text-align: center;
 }
 .questionwrapper {
   display: flex;
@@ -249,27 +249,26 @@ text-align: center;
   display: flex;
   gap: 10px;
 }
-.shuffleBtn:disabled{
-  opacity: .6;
+.shuffleBtn:disabled {
+  opacity: 0.6;
   cursor: default;
 }
-.ShuffleBtn{
-display: flex;
-justify-content: center;
-align-items: center;
+.ShuffleBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-cursor: pointer;
-    border-radius: 8px;
-    border: 2px solid #E2E8F0;
-    background-color: #f5f6fa;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 2px solid #e2e8f0;
+  background-color: #f5f6fa;
 }
-.pagination-info{
-color: #64748b;
-font-size: 14px;
-text-align: left;
+.pagination-info {
+  color: #64748b;
+  font-size: 14px;
+  text-align: left;
 }
-.ShuffleBtn:disabled{
-  opacity: .6;
- cursor: default;
-
+.ShuffleBtn:disabled {
+  opacity: 0.6;
+  cursor: default;
 }

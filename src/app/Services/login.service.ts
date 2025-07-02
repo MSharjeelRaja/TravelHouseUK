@@ -42,8 +42,8 @@ export class LoginService {
   }
   shuffleCategory(id: number, order: number) {
     const token = this.getToken();
-      const payload = [{ id: id, displayOrder: order }];
-     console.log('Payload being sent to API:', payload);
+    const payload = [{ id: id, displayOrder: order }];
+    console.log('Payload being sent to API:', payload);
 
     return this.http.post<any>(
       `${this.apiBaseUrl}/api/AdminFAQCategory/ShaffleCategory`,

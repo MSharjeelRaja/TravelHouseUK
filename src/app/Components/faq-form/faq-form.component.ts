@@ -19,7 +19,11 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -55,7 +59,6 @@ export class FaqFormComponent implements OnInit, AfterViewInit {
   isRotatedContinent = false;
   isRotatedCountry = false;
 
-
   faqform!: FormGroup;
   discountForm!: FormGroup;
   notificationForm!: FormGroup;
@@ -69,7 +72,7 @@ export class FaqFormComponent implements OnInit, AfterViewInit {
   constructor(
     private fb: FormBuilder,
     private service: LoginService,
-        private router: Router,
+    private router: Router,
     private dialog: MatDialog,
     private dialogRef: MatDialogRef<FaqFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -126,17 +129,17 @@ export class FaqFormComponent implements OnInit, AfterViewInit {
           usageLimit: this.data.updateItem.limit,
           amount: this.data.updateItem.discountAmount,
           validTo: this.data.updateItem.validTo,
-           continent: this.data.updateItem.continent,
+          continent: this.data.updateItem.continent,
 
-        country: this.data.updateItem.country,
-        city: this.data.updateItem.city,
-        email:this.data.updateItem.email
+          country: this.data.updateItem.country,
+          city: this.data.updateItem.city,
+          email: this.data.updateItem.email,
         });
       }
     } else if (this.formType === 'notification') {
       this.notificationForm = this.fb.group({
         title: ['', [Validators.required]],
-        email: ['', [Validators.required,Validators.email]],
+        email: ['', [Validators.required, Validators.email]],
         message: ['', [Validators.required]],
         image: [''],
       });
@@ -183,63 +186,61 @@ export class FaqFormComponent implements OnInit, AfterViewInit {
   submitFaq() {
     if (this.faqform.valid) {
       console.log('FAQ Form Submitted:', this.faqform.value);
-
     }
   }
-updateFaq() {
-  this.loader = true;
+  updateFaq() {
+    this.loader = true;
 
-  if (this.faqform.valid) {
-    const id = this.data?.updateItem?.id ?? 0;
-    const payload = {
-      id:id ,
-      question: this.faqform.get('question')?.value,
-      answer: this.faqform.get('answer')?.value,
-      categoryId: this.categories.find(cat => cat.name === this.faqform.get('category')?.value)?.id || null
-    };
+    if (this.faqform.valid) {
+      const id = this.data?.updateItem?.id ?? 0;
+      const payload = {
+        id: id,
+        question: this.faqform.get('question')?.value,
+        answer: this.faqform.get('answer')?.value,
+        categoryId:
+          this.categories.find(
+            (cat) => cat.name === this.faqform.get('category')?.value
+          )?.id || null,
+      };
 
-    const resp = this.service.Update(payload);
+      const resp = this.service.Update(payload);
 
-    resp.subscribe({
-      next: (response) => {
+      resp.subscribe({
+        next: (response) => {
+          const popupRef = this.dialog.open(PopUpComponent, {
+            width: '500px',
+            data: {
+              alertType: 'success',
+            },
+          });
 
-        const popupRef = this.dialog.open(PopUpComponent, {
-          width: '500px',
-          data: {
-            alertType: 'success'
-          }
-        });
+          popupRef.afterClosed().subscribe(() => {
+            this.dialogRef.close('refresh');
+          });
 
-        popupRef.afterClosed().subscribe(() => {
-  this.dialogRef.close('refresh');
-        });
+          this.loader = false;
+        },
+        error: (error) => {
+          this.loader = false;
+          console.error('API error:', error);
 
-        this.loader = false;
-      },
-      error: (error) => {
-        this.loader = false;
-        console.error('API error:', error);
-
-        this.dialog.open(PopUpComponent, {
-          width: '500px',
-          data: {
-            alertType: 'error',
-            message: 'Something went wrong!'
-          }
-        });
-      }
-    });
+          this.dialog.open(PopUpComponent, {
+            width: '500px',
+            data: {
+              alertType: 'error',
+              message: 'Something went wrong!',
+            },
+          });
+        },
+      });
+    }
   }
-}
-
 
   onTargetUserChange() {
     const form = this.discountForm;
     const target = form.get('targetUsers')?.value;
 
-
     const fields = ['continent', 'country', 'city', 'email'];
-
 
     fields.forEach((field) => {
       const control = form.get(field);
@@ -250,7 +251,6 @@ updateFaq() {
       control.markAsPristine();
     });
 
-
     if (target === 'Region-Wise') {
       ['continent', 'country', 'city'].forEach((field) => {
         form.get(field)?.setValidators([Validators.required]);
@@ -259,99 +259,112 @@ updateFaq() {
       form.get('email')?.setValidators([Validators.required, Validators.email]);
     }
 
-
     fields.forEach((field) => {
       form.get(field)?.updateValueAndValidity();
     });
   }
-private formatDate(date: Date): string {
-  if (!date) return '';
+  private formatDate(date: Date): string {
+    if (!date) return '';
 
+    const adjustedDate = new Date(date);
 
-  const adjustedDate = new Date(date);
+    adjustedDate.setMinutes(
+      adjustedDate.getMinutes() - adjustedDate.getTimezoneOffset()
+    );
 
-  adjustedDate.setMinutes(adjustedDate.getMinutes() - adjustedDate.getTimezoneOffset());
-
-  return adjustedDate.toISOString();
-}
-
-addUpdateDiscount() {
-  this.loader = true;
-
-  if (this.discountForm.valid) {
-    console.log('Form values:', this.discountForm.value);
-    console.log('CODE BEING SENT:', this.discountForm.get('code')?.value);
-
-    const discount = {
-      id: this.updateMode ? this.data.updateItem.id : 0,
-      discountName: this.discountForm.get('planName')?.value,
-      discountCode: this.discountForm.get('code')?.value,
-      discountAmount: Number(this.discountForm.get('amount')?.value),
-
-validTo: this.formatDate(this.discountForm.get('validTo')?.value),
-
-      usageLimit: Number(this.discountForm.get('usageLimit')?.value),
-      status: this.discountForm.get('status')?.value,
-      targetUsers: this.discountForm.get('targetUsers')?.value,
-      countryName: this.discountForm.get('country')?.value || null,
-      countryCode: this.discountForm.get('country')?.value ?
-                  this.discountForm.get('country')?.value.substring(0, 3).toUpperCase() : null,
-      continentName: this.discountForm.get('continent')?.value || null,
-      continentCode: this.discountForm.get('continent')?.value ?
-                   this.discountForm.get('continent')?.value.substring(0, 3).toUpperCase() : null,
-      cityName: this.discountForm.get('city')?.value || null,
-      cityCode: this.discountForm.get('city')?.value ?
-               this.discountForm.get('city')?.value.substring(0, 3).toUpperCase() : null,
-      email: this.discountForm.get('email')?.value || null
-    };
-
-    console.log('Complete payload being sent:', JSON.stringify(discount, null, 2));
-
-    this.service.addUpdateDiscount(discount).subscribe({
-      next: (response) => {
-        this.loader = false;
-        console.log('Full API response:', response);
-
-        const popupRef = this.dialog.open(PopUpComponent, {
-          width: '500px',
-          data: {
-            alertType: 'success',
-            message: 'Discount saved successfully!'
-          }
-        });
-
-        popupRef.afterClosed().subscribe(() => {
-          this.dialogRef.close('refresh');
-        });
-      },
-      error: (error) => {
-        this.loader = false;
-        console.error('Full error object:', error);
-        console.error('Error status:', error.status);
-        console.error('Error message:', error.message);
-        console.error('Error response:', error.error);
-
-        this.dialog.open(PopUpComponent, {
-          width: '500px',
-          data: {
-            alertType: 'error',
-            message: 'Failed to save discount! ' +
-                     (error.error?.message || error.message || 'Unknown error')
-          }
-        });
-      }
-    });
-  } else {
-    this.loader = false;
-    console.log('Form validation errors:', this.discountForm.errors);
-    Object.values(this.discountForm.controls).forEach(control => {
-      console.log(`Control ${control}:`, control.errors);
-      control.markAsTouched();
-    });
+    return adjustedDate.toISOString();
   }
-}
+
+  addUpdateDiscount() {
+    this.loader = true;
+
+    if (this.discountForm.valid) {
+      console.log('Form values:', this.discountForm.value);
+      console.log('CODE BEING SENT:', this.discountForm.get('code')?.value);
+
+      const discount = {
+        id: this.updateMode ? this.data.updateItem.id : 0,
+        discountName: this.discountForm.get('planName')?.value,
+        discountCode: this.discountForm.get('code')?.value,
+        discountAmount: Number(this.discountForm.get('amount')?.value),
+
+        validTo: this.formatDate(this.discountForm.get('validTo')?.value),
+
+        usageLimit: Number(this.discountForm.get('usageLimit')?.value),
+        status: this.discountForm.get('status')?.value,
+        targetUsers: this.discountForm.get('targetUsers')?.value,
+        countryName: this.discountForm.get('country')?.value || null,
+        countryCode: this.discountForm.get('country')?.value
+          ? this.discountForm
+              .get('country')
+              ?.value.substring(0, 3)
+              .toUpperCase()
+          : null,
+        continentName: this.discountForm.get('continent')?.value || null,
+        continentCode: this.discountForm.get('continent')?.value
+          ? this.discountForm
+              .get('continent')
+              ?.value.substring(0, 3)
+              .toUpperCase()
+          : null,
+        cityName: this.discountForm.get('city')?.value || null,
+        cityCode: this.discountForm.get('city')?.value
+          ? this.discountForm.get('city')?.value.substring(0, 3).toUpperCase()
+          : null,
+        email: this.discountForm.get('email')?.value || null,
+      };
+
+      console.log(
+        'Complete payload being sent:',
+        JSON.stringify(discount, null, 2)
+      );
+
+      this.service.addUpdateDiscount(discount).subscribe({
+        next: (response) => {
+          this.loader = false;
+          console.log('Full API response:', response);
+
+          const popupRef = this.dialog.open(PopUpComponent, {
+            width: '500px',
+            data: {
+              alertType: 'success',
+              message: 'Discount saved successfully!',
+            },
+          });
+
+          popupRef.afterClosed().subscribe(() => {
+            this.dialogRef.close('refresh');
+          });
+        },
+        error: (error) => {
+          this.loader = false;
+          console.error('Full error object:', error);
+          console.error('Error status:', error.status);
+          console.error('Error message:', error.message);
+          console.error('Error response:', error.error);
+
+          this.dialog.open(PopUpComponent, {
+            width: '500px',
+            data: {
+              alertType: 'error',
+              message:
+                'Failed to save discount! ' +
+                (error.error?.message || error.message || 'Unknown error'),
+            },
+          });
+        },
+      });
+    } else {
+      this.loader = false;
+      console.log('Form validation errors:', this.discountForm.errors);
+      Object.values(this.discountForm.controls).forEach((control) => {
+        console.log(`Control ${control}:`, control.errors);
+        control.markAsTouched();
+      });
+    }
+  }
 
   sendNotification() {
-    alert('sent Notification from'+this.notificationForm.value.email);
+    alert('sent Notification from' + this.notificationForm.value.email);
   }
 }

@@ -32,8 +32,8 @@ export class PopUpComponent implements OnInit {
   ngOnInit() {
     if (this.data?.alertType) {
       this.Type = this.data.alertType;
-        this.alertType = this.data.alertType;
-          this.message = this.data.message;
+      this.alertType = this.data.alertType;
+      this.message = this.data.message;
     }
   }
 

@@ -31,7 +31,7 @@ export class LoginComponent {
     private loginservice: LoginService,
     private router: Router,
     private dialog: MatDialog,
-    private acRoute:ActivatedRoute
+    private acRoute: ActivatedRoute
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -39,87 +39,84 @@ export class LoginComponent {
       rememberMe: [false],
     });
   }
-ngOnInit() {
-  const saved = localStorage.getItem('rememberedUser');
+  ngOnInit() {
+    const saved = localStorage.getItem('rememberedUser');
 
-  this.acRoute.params.subscribe(params => {
-    if (params['action'] === 'logout') {
-      if (saved) {
+    this.acRoute.params.subscribe((params) => {
+      if (params['action'] === 'logout') {
+        if (saved) {
+          try {
+            const creds = JSON.parse(saved);
+            this.loginForm.patchValue({
+              email: creds.email,
+              password: creds.pass,
+              rememberMe: true,
+            });
+          } catch (e) {
+            console.error('Failed to parse remembered user', e);
+          }
+        }
+        localStorage.removeItem('rememberedUser');
+
+        return;
+      }
+      if (!params['action'] && saved) {
         try {
           const creds = JSON.parse(saved);
           this.loginForm.patchValue({
             email: creds.email,
             password: creds.pass,
-            rememberMe: true
+            rememberMe: true,
           });
+
+          this.router.navigate(['/main']);
         } catch (e) {
           console.error('Failed to parse remembered user', e);
         }
       }
-      localStorage.removeItem('rememberedUser');
-
-      return;
-    }
-
-
-    if (!params['action'] && saved) {
-      try {
-        const creds = JSON.parse(saved);
-        this.loginForm.patchValue({
-          email: creds.email,
-          password: creds.pass,
-          rememberMe: true
-        });
-
-        this.router.navigate(['/main']);
-      } catch (e) {
-        console.error('Failed to parse remembered user', e);
-      }
-    }
-  });
-}
-
-login() {
-  this.loader.set(true);
-
-  const { email, password, rememberMe } = this.loginForm.value;
-
-  if (rememberMe) {
-    const creds = {
-      email: email,
-      pass: password
-    };
-    localStorage.setItem('rememberedUser', JSON.stringify(creds));
-  } else {
-    localStorage.removeItem('rememberedUser');
+    });
   }
 
-  const resp = this.loginservice.login(email, password);
-  resp.subscribe({
-    next: (response) => {
-      if (response?.data?.isAuthSuccessful) {
-        const token = response?.data?.token;
-        localStorage.setItem('token', token);
+  login() {
+    this.loader.set(true);
 
-        setTimeout(() => {
-          this.loader.set(false);
-          this.router.navigate(['/main']);
-        }, 2000);
-      } else {
-        setTimeout(() => {
-          this.dialog.open(PopUpComponent, {
-            width: '500px',
-          });
-          this.loader.set(false);
-        }, 2000);
-        console.log(` Login failed: Invalid email or password`);
-      }
-    },
-    error: (error) => {
-      this.loader.set(false);
-      console.error('API error:', error);
-    },
-  });
-}
+    const { email, password, rememberMe } = this.loginForm.value;
 
+    if (rememberMe) {
+      const creds = {
+        email: email,
+        pass: password,
+      };
+      localStorage.setItem('rememberedUser', JSON.stringify(creds));
+    } else {
+      localStorage.removeItem('rememberedUser');
+    }
+
+    const resp = this.loginservice.login(email, password);
+    resp.subscribe({
+      next: (response) => {
+        if (response?.data?.isAuthSuccessful) {
+          const token = response?.data?.token;
+          localStorage.setItem('token', token);
+
+          setTimeout(() => {
+            this.loader.set(false);
+            this.router.navigate(['/main']);
+          }, 2000);
+        } else {
+          setTimeout(() => {
+            this.dialog.open(PopUpComponent, {
+              width: '500px',
+            });
+            this.loader.set(false);
+          }, 2000);
+          console.log(` Login failed: Invalid email or password`);
+        }
+      },
+      error: (error) => {
+        this.loader.set(false);
+        console.error('API error:', error);
+      },
+    });
+  }
 }

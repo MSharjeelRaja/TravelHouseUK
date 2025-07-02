@@ -1,5 +1,5 @@
 <app-loader *ngIf="loader()"></app-loader>
-<div  class="loginContainer d-flex justify-content-center align-items-center">
+<div class="loginContainer d-flex justify-content-center align-items-center">
   <div class="login-wrapper d-flex">
     <section
       class="login-form col-md-5 d-flex flex-column align-items-center justify-content-center"
@@ -7,7 +7,7 @@
       <header class="header-logo mb-3 mt-3">
         <img src="logo/Logo.png" alt="" />
       </header>
-      <h2 class="heading text-center ">Welcome to the TH-UK CMS</h2>
+      <h2 class="heading text-center">Welcome to the TH-UK CMS</h2>
       <p class="text-center mb-4">
         Access your content management dashboard by securely logging in. Please
         enter your credentials to manage, edit, and publish your content with
@@ -33,7 +33,8 @@
               *ngIf="loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.touched"
               >Email is required.</span
             >
-            <span *ngIf=" loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['email']"
+            <span
+              *ngIf=" loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['email']"
               >Enter a valid email.</span
             >
           </small>
@@ -53,23 +54,36 @@
             placeholder="Enter your password here."
           />
           <i
-    class="bi toggle-password"*ngIf="!loginForm.get('password')?.invalid"
-    [ngClass]="hidePassword ? 'bi-eye' : 'bi-eye-slash'"
-    (click)="hidePassword = !hidePassword"
-    style="position: absolute; right: 1rem; top: 1.8rem; cursor: pointer; color: #64748b;"
-  ></i>
-          <small class="text-danger ">
+            class="bi toggle-password"
+            *ngIf="!loginForm.get('password')?.invalid"
+            [ngClass]="hidePassword ? 'bi-eye' : 'bi-eye-slash'"
+            (click)="hidePassword = !hidePassword"
+            style="
+              position: absolute;
+              right: 1rem;
+              top: 1.8rem;
+              cursor: pointer;
+              color: #64748b;
+            "
+          ></i>
+          <small class="text-danger">
             <span
               *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']"
               >Password is required.</span
             >
-            <span *ngIf=" loginForm.get('password')?.touched &&loginForm.get('password')?.errors?.['minlength']"
+            <span
+              *ngIf=" loginForm.get('password')?.touched &&loginForm.get('password')?.errors?.['minlength']"
               >Password must be at least 6 characters.</span
             >
           </small>
         </div>
         <div class="mb-4 form-check">
-          <input type="checkbox" class="form-check-input" id="rememberMe" formControlName="rememberMe"/>
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="rememberMe"
+            formControlName="rememberMe"
+          />
           <label class="form-check-label" for="rememberMe">Remember Me</label>
         </div>
 

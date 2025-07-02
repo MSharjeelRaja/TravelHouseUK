@@ -1,41 +1,40 @@
-
-.dialog-content{
-width: 500px;
-text-align: center;
-display: flex;
-justify-content: center;
-align-items: center;
-padding: 28px 80px;
+.dialog-content {
+  width: 500px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 28px 80px;
 }
-.header{
+.header {
   font-weight: bold;
   font-size: 20px;
 }
-.error-icon{
+.error-icon {
   width: 80px;
   height: 80px;
   margin: 16px 0px;
 }
-p{
+p {
   font-size: 14px;
 }
-.btns{
+.btns {
   display: flex;
   gap: 20px;
-  .btn{
+  .btn {
     padding: 0px 44px;
   }
 }
-.btn{
+.btn {
   background-color: #5b57f4;
   width: 90%;
   border-radius: 5px;
   height: 35px;
   color: white;
 }
-.cancelBtn{
+.cancelBtn {
   background-color: transparent;
   color: black;
-  border: .8px solid rgb(116, 119, 127);
+  border: 0.8px solid rgb(116, 119, 127);
   padding: 0px 24px;
 }

@@ -58,7 +58,6 @@
 }
 label {
   font-size: 13px;
-
 }
 .invalid {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
@@ -160,47 +159,44 @@ button.mat-button.bg-white {
 .discountForm .email-wrapper {
   margin-bottom: 0px;
 }
-.imageContainer{
+.imageContainer {
   border: 2px dashed #d6e4f0;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-border-radius: 8px;
- transition:border-color 0.4s ease-in-out;
- cursor: pointer;
- padding: 16px;
- width: 430px;
-p{
-  margin-bottom: .25rem;
-  font-size: 12px;
-}
-span{
-font-size: 10px;
-color: #909090;
-}
-.image{
-  background-color: #eaf1ff;
-  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  transition: border-color 0.4s ease-in-out;
+  cursor: pointer;
+  padding: 16px;
+  width: 430px;
+  p {
+    margin-bottom: 0.25rem;
+    font-size: 12px;
+  }
+  span {
+    font-size: 10px;
+    color: #909090;
+  }
+  .image {
+    background-color: #eaf1ff;
+    border-radius: 50%;
     width: 40px;
     height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
-  img{
-    width: 20px;
-    height: 20px;
-
+    img {
+      width: 20px;
+      height: 20px;
+    }
+    margin-bottom: 1rem;
   }
-   margin-bottom: 1rem;
 }
-}
-.imageContainer:hover{
-
-
+.imageContainer:hover {
   border-color: #2563eb;
 }
 
-.selected{
-  color:#2563eb;
+.selected {
+  color: #2563eb;
 }

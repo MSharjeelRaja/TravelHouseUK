@@ -45,7 +45,7 @@
         />
         <button
           class="addBtn"
-          (click)="addUpdateCategory(selectedCategoryId,categoryInput)"
+          (click)="addUpdateCategory(selectedCategoryId, categoryInput)"
           [disabled]="!categoryInput"
         >
           {{ selectedCategoryId ? "Update Category" : "+ Add Category" }}
@@ -66,19 +66,26 @@
         <div class="questionsHead">
           <span class="questionheader">{{ item.name }}</span>
           <div class="shuffleBtns">
-            <button class="ShuffleBtn" (click)="shuffle(item.id,item.displayOrder-1)" [disabled]="first">
+            <button
+              class="ShuffleBtn"
+              (click)="shuffle(item.id, item.displayOrder - 1)"
+              [disabled]="first"
+            >
               <mat-icon class="icon">arrow_upward</mat-icon>
             </button>
-            <button class="ShuffleBtn" (click)="shuffle(item.id,item.displayOrder+1)" [disabled]="last">
+            <button
+              class="ShuffleBtn"
+              (click)="shuffle(item.id, item.displayOrder + 1)"
+              [disabled]="last"
+            >
               <mat-icon class="icon">arrow_downward</mat-icon>
             </button>
           </div>
         </div>
-  <div *ngIf="item.faqs.length === 0" class="noFaq">
-  <span>No FAQs found.</span>
-</div>
+        <div *ngIf="item.faqs.length === 0" class="noFaq">
+          <span>No FAQs found.</span>
+        </div>
         <div *ngFor="let faq of item.faqs">
-
           <div class="questionwrapper">
             <div class="faq-question">
               <span>{{ faq.question }}</span>
@@ -93,7 +100,7 @@
               <img
                 width="16"
                 class="img"
-                (click)="addQuestion(faq,item.name)"
+                (click)="addQuestion(faq, item.name)"
                 src="/logo/edit.png"
                 alt=""
               />

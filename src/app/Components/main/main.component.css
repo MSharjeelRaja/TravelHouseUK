@@ -20,7 +20,7 @@
 
 .subheader {
   color: white;
-  font-size: 0.90rem;
+  font-size: 0.9rem;
   font-weight: 700;
   margin: 20px 0px 10px 14px;
   letter-spacing: 0.5px;
@@ -46,7 +46,7 @@
   border-radius: 8px;
 }
 .navbar {
-      box-shadow: 0 1px 2px #00000012;
+  box-shadow: 0 1px 2px #00000012;
   display: flex;
   justify-content: space-between;
   padding: 12px 20px;
@@ -66,18 +66,18 @@
     font-weight: 700;
     margin: 0;
   }
-  .profile{
-display: flex;
+  .profile {
+    display: flex;
 
-img{
-  width: 37px;
-  border-radius: 50%;
-  height: 37px;
-}
-button{
-  display: flex;
-  align-items: center;
-}
+    img {
+      width: 37px;
+      border-radius: 50%;
+      height: 37px;
+    }
+    button {
+      display: flex;
+      align-items: center;
+    }
   }
 }
 .profile {
@@ -90,14 +90,14 @@ button{
   background-color: white;
 
   list-style: none;
-  padding: .25rem 0;
+  padding: 0.25rem 0;
   margin: 0;
   min-width: 200px;
   border-radius: 10px;
 
   z-index: 1000;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-transform: translate3d(-120px, 38.4px, 0px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transform: translate3d(-120px, 38.4px, 0px);
 }
 
 .options-dropdown li {
@@ -114,13 +114,12 @@ transform: translate3d(-120px, 38.4px, 0px);
 .options-dropdown li:hover {
   background-color: #f5f5f5;
 }
-.line{
-  margin: .25rem 1rem;
-    border-top: 1px solid #808080;
+.line {
+  margin: 0.25rem 1rem;
+  border-top: 1px solid #808080;
 }
-.option-icon{
+.option-icon {
   font-size: 20px;
-    width: 20px;
-    height: 20px;
-
+  width: 20px;
+  height: 20px;
 }

@@ -1,7 +1,5 @@
 .container {
   padding: 15px;
-
-
 }
 
 .headerWrapper {
@@ -33,12 +31,11 @@
   height: 35px;
   border: none;
 }
-.discountContainer{
-border:1px solid #E2E8F0;
-margin: 16px 0px;
+.discountContainer {
+  border: 1px solid #e2e8f0;
+  margin: 16px 0px;
 
-border-radius: 12px;
-
+  border-radius: 12px;
 }
 .table {
   font-size: 13px;
@@ -49,79 +46,70 @@ border-radius: 12px;
   width: 100%;
   border-radius: 12px;
   overflow: hidden;
-border:1px solid #eaf1fb;
+  border: 1px solid #eaf1fb;
   border-radius: 10px;
-
-
 }
-thead th{
+thead th {
   color: #64748b;
-  vertical-align:middle;
+  vertical-align: middle;
   padding: 19px 12px;
   text-align: left;
   font-size: 14px;
-font-weight: 400!important;
-      border-bottom: 1px solid #eaf1fb;
+  font-weight: 400 !important;
+  border-bottom: 1px solid #eaf1fb;
 }
-tbody th{
-font-size: 13px;
+tbody th {
+  font-size: 13px;
   font-weight: 400;
-color:  rgb(33, 37, 41);
-padding: 16px 12px;
-text-align: start;
-
+  color: rgb(33, 37, 41);
+  padding: 16px 12px;
+  text-align: start;
 }
 .tabelContainer {
-padding: 24px;
+  padding: 24px;
 }
-.status{
+.status {
   font-weight: 600;
-    border-radius: 16px;
-    padding: 4px 16px;
+  border-radius: 16px;
+  padding: 4px 16px;
 }
-.inActive{
-
-
-    color: rgb(250, 173, 20);
-    background-color: rgb(255, 247, 219);
-
+.inActive {
+  color: rgb(250, 173, 20);
+  background-color: rgb(255, 247, 219);
 }
-.active{
+.active {
   color: rgb(30, 215, 96);
-    background-color: rgb(234, 255, 234);
+  background-color: rgb(234, 255, 234);
 }
-.img{
+.img {
   cursor: pointer;
 }
-.custom-paginator{
+.custom-paginator {
   display: flex;
   justify-content: space-between;
 }
-.pagination-info{
-color: #64748b;
-font-size: 14px;
-text-align: left;
+.pagination-info {
+  color: #64748b;
+  font-size: 14px;
+  text-align: left;
 }
-.pagination-buttons{
-display: flex;
-gap: 10px;
-
-
+.pagination-buttons {
+  display: flex;
+  gap: 10px;
 }
-.ShuffleBtn:disabled{
-  opacity: .6;
- cursor: default;
-
+.ShuffleBtn:disabled {
+  opacity: 0.6;
+  cursor: default;
 }
-.ShuffleBtn{
- width: 33px;
-height: 33px;
-display: flex;
-justify-content: center;
-align-items: center;
+.ShuffleBtn {
+  width: 33px;
+  height: 33px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-cursor: pointer;
-    border-radius: 8px;
-    border: 2px solid #E2E8F0;
-    background-color: #f5f6fa;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 2px solid #e2e8f0;
+  background-color: #f5f6fa;
 }
