@@ -67,6 +67,9 @@ tbody th {
 }
 .tabelContainer {
   padding: 24px;
+  padding-top: 40px;
+  background-color: white;
+  border-radius: 10px;
 }
 .status {
   font-weight: 600;
@@ -112,4 +115,23 @@ tbody th {
   border-radius: 8px;
   border: 2px solid #e2e8f0;
   background-color: #f5f6fa;
+}
+.icon {
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .headerWrapper {
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+    .btns {
+      margin-top: 20px;
+    }
+  }
+  .tabelContainer {
+    overflow-x: scroll;
+  }
 }

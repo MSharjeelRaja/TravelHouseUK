@@ -16,7 +16,14 @@
     <img src="/logo/success-icon.svg" alt="Error" class="error-icon" />
 
     <h2 class="header">Success</h2>
-    <p>Saved successfully!</p>
+    <p>
+      {{
+        message === "Category Swap Successfully"
+          ? message
+          : "Saved successfully!"
+      }}
+    </p>
+
     <button color="primary" mat-dialog-close class="btn">OK</button>
   </ng-container>
   <ng-container *ngIf="Type == 'confirm'">

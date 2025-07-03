@@ -45,4 +45,9 @@ export class MainComponent {
       this.showOptions = false;
     }
   }
+  logout() {
+    localStorage.removeItem('token');
+
+    this.router.navigate(['auth/login']);
+  }
 }

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,111 +9,64 @@ import { Router } from '@angular/router';
 export class LoginService {
   apiBaseUrl = 'https://api-dev.travelhouseuk.co.uk';
 
-  constructor(private http: HttpClient, private router: Router) {}
-  login(email: string, password: string) {
-    return this.http.post<any>(`${this.apiBaseUrl}/api/AdminAuth/Login`, {
+  private http = inject(HttpClient);
+  private router = inject(Router);
+
+  login(email: string, password: string): Observable<any> {
+    debugger;
+    return this.http.post(`${this.apiBaseUrl}/api/AdminAuth/Login`, {
       email,
       password,
     });
   }
-  getToken() {
-    return localStorage.getItem('token');
-  }
-  getFaqs() {
-    const token = this.getToken();
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
 
-    return this.http.get<any>(
-      `${this.apiBaseUrl}/api/AdminFAQCategory/GetAll`,
-      { headers }
-    );
+  getFaqs(): Observable<any> {
+    return this.http.get(`${this.apiBaseUrl}/api/AdminFAQCategory/GetAll`);
   }
-  getdiscounts() {
-    const token = this.getToken();
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
 
-    return this.http.get<any>(
-      `${this.apiBaseUrl}/api/AdminFlightDiscount/GetAll`,
-      { headers }
-    );
+  getdiscounts(): Observable<any> {
+    return this.http.get(`${this.apiBaseUrl}/api/AdminFlightDiscount/GetAll`);
   }
-  shuffleCategory(id: number, order: number) {
-    const token = this.getToken();
-    const payload = [{ id: id, displayOrder: order }];
+
+  shuffleCategory(id: number, order: number): Observable<any> {
+    const payload = [{ id, displayOrder: order }];
     console.log('Payload being sent to API:', payload);
-
-    return this.http.post<any>(
+    return this.http.post(
       `${this.apiBaseUrl}/api/AdminFAQCategory/ShaffleCategory`,
-      payload,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      payload
     );
   }
-  Update(category: any) {
+
+  updateFaq(category: any): Observable<any> {
     console.log(
       'Complete payload being sent:',
       JSON.stringify(category, null, 2)
     );
-    console.log('id' + category.id);
-    const token = this.getToken();
-    return this.http.post<any>(
-      `${this.apiBaseUrl}/api/AdminFAQ/AddUpdate`,
-      {
-        id: category.id,
-        question: category.question,
-        answer: category.answer,
-        categoryId: category.categoryId,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+    return this.http.post(`${this.apiBaseUrl}/api/AdminFAQ/AddUpdate`, {
+      id: category.id,
+      question: category.question,
+      answer: category.answer,
+      categoryId: category.categoryId,
+    });
+  }
+
+  deleteFaq(id: number): Observable<any> {
+    return this.http.delete(
+      `${this.apiBaseUrl}/api/AdminFAQ/DeleteById?Id=${id}`
     );
   }
-  deleteFaq(id: number) {
-    const token = this.getToken();
-    return this.http.delete<any>(
-      `${this.apiBaseUrl}/api/AdminFAQ/DeleteById?Id=${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+
+  addCategory(id: number, categoryName: string): Observable<any> {
+    return this.http.post(`${this.apiBaseUrl}/api/AdminFAQCategory/AddUpdate`, {
+      id,
+      name: categoryName,
+    });
   }
-  addCategory(id: number, categoryName: string) {
-    const token = this.getToken();
-    return this.http.post<any>(
-      `${this.apiBaseUrl}/api/AdminFAQCategory/AddUpdate`,
-      {
-        id: id,
-        name: categoryName,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-  }
-  addUpdateDiscount(discountData: any) {
-    const token = this.getToken();
-    return this.http.post<any>(
+
+  addUpdateDiscount(discountData: any): Observable<any> {
+    return this.http.post(
       `${this.apiBaseUrl}/api/AdminFlightDiscount/AddUpdate`,
-      discountData,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      discountData
     );
   }
 }

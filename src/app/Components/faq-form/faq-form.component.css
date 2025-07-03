@@ -200,3 +200,71 @@ button.mat-button.bg-white {
 .selected {
   color: #2563eb;
 }
+@media (max-width: 768px) {
+  .Form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .discountForm,
+  .faqForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .email-wrapper {
+    width: 100% !important;
+    flex-direction: column !important;
+    margin-bottom: 16px;
+  }
+
+  .form-control,
+  .input-control,
+  select,
+  textarea,
+  input {
+    width: 300px !important;
+    max-width: 100%;
+    font-size: 14px !important;
+    padding: 8px 10px;
+  }
+  .discountForm {
+    .input-control {
+      width: 700px !important;
+    }
+  }
+  .formHeaders h2,
+  .formHeaders span {
+    font-size: 16px !important;
+    text-align: center;
+  }
+
+  .btn-primary {
+    width: 90%;
+    font-size: 14px;
+    padding: 10px;
+    margin-top: 10px;
+  }
+
+  .faq-arrow {
+    right: 12px !important;
+    top: 32px !important;
+    width: 14px;
+  }
+
+  .imageContainer {
+    flex-direction: column;
+    text-align: center;
+    width: 90%;
+    margin: auto;
+  }
+
+  .imageContainer img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .selected {
+    font-size: 14px;
+  }
+}

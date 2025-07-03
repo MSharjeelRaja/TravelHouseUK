@@ -1,9 +1,5 @@
-<mat-sidenav-container style="height: 100vh">
-  <mat-sidenav
-    mode="side"
-    opened
-    style="width: 250px; border-radius: 0px; border: none"
-  >
+<mat-sidenav-container class="main">
+  <mat-sidenav mode="side" opened class="sidenavContainer">
     <div class="sideNav d-flex flex-column h-100">
       <h1 class="header">Dashboard</h1>
       <div class="hLine"></div>
@@ -21,33 +17,33 @@
           alt="overview"
           class="icon"
         />
-        Overview
+        <span>Overview</span>
       </a>
       <span class="text-white my-2 font-medium subheader"
         >Content Managemt</span
       >
       <a class="nav-button">
         <img [src]="'/logo/notiifcation.png'" alt="notification" class="icon" />
-        Push Notifications
+        <span> Push Notifications</span>
       </a>
 
       <a class="nav-button">
         <img [src]="'/logo/Component 1.png'" alt="notification" class="icon" />
-        Flight Bookings
+        <span> Flight Bookings</span>
       </a>
 
       <a class="nav-button">
         <img [src]="'/logo/explore.png'" alt="notification" class="icon" />
-        Search Records
+        <span> Search Records</span>
       </a>
       <a class="nav-button">
         <img [src]="'/logo/splash2.png'" alt="notification" class="icon" />
-        Splash Screens
+        <span> Splash Screens</span>
       </a>
 
       <a class="nav-button">
         <img [src]="'/logo/splash2.png'" alt="notification" class="icon" />
-        Home Banners
+        <span>Home Banners</span>
       </a>
       <a
         routerLink="/main/faq"
@@ -64,16 +60,16 @@
           alt="faq"
           class="icon"
         />
-        FAQ
+        <span> FAQ</span>
       </a>
 
       <a class="nav-button">
         <img [src]="'/logo/explore.png'" alt="notification" class="icon" />
-        Explore Section
+        <span> Explore Section</span>
       </a>
       <a class="nav-button">
         <img [src]="'/logo/settings.png'" alt="notification" class="icon" />
-        General Settings
+        <span> General Settings</span>
       </a>
       <a
         routerLink="/main/discount"
@@ -92,23 +88,23 @@
           alt="Discount"
           class="icon"
         />
-        Discounts
+        <span>Discounts</span>
       </a>
       <span class="text-white my-2 font-medium subheader"
         >PAYMENT MANAGMENT</span
       >
       <a class="nav-button">
         <img [src]="'/logo/paymnet.png'" alt="Discount" class="icon" />
-        Payment Gateways
+        <span> Payment Gateways</span>
       </a>
       <a class="nav-button">
         <img [src]="'/logo/wallet.png'" alt="Discount" class="icon" />
-        Payment Plans
+        <span> Payment Plans</span>
       </a>
       <span class="text-white my-2 font-medium subheader">Settings</span>
       <a class="nav-button">
         <img [src]="'/logo/settings.png'" alt="notification" class="icon" />
-        General Settings
+        <span>General Settings</span>
       </a>
     </div>
   </mat-sidenav>
@@ -132,14 +128,15 @@
 
           <hr class="line" />
 
-          <li [routerLink]="['/auth/login', 'logout']">
+          <li (click)="logout()">
             <mat-icon class="option-icon">logout</mat-icon>
             Logout
           </li>
         </ul>
       </div>
     </nav>
-
-    <router-outlet class="outlet"></router-outlet>
+    <div class="content-wrapper">
+      <router-outlet></router-outlet>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

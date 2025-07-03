@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { LoaderComponent } from '../loader/loader.component';
 import { CommonModule } from '@angular/common';
 import { LoginService } from '../../Services/login.service';
@@ -28,14 +28,14 @@ interface Discount {
   styleUrl: './discounts.component.css',
 })
 export class DiscountsComponent {
-  loader = true;
   currentPage = signal(0);
-
+  private service = inject(LoginService);
+  private dialog = inject(MatDialog);
   pageSize = 10;
 
   discounts = signal<Discount[]>([]);
   totalRecords = computed(() => this.discounts().length);
-  constructor(private service: LoginService, private dialog: MatDialog) {}
+
   ngOnInit() {
     this.getdiscounts();
   }
@@ -43,7 +43,6 @@ export class DiscountsComponent {
     this.service.getdiscounts().subscribe({
       next: (response) => {
         if (response?.data) {
-          this.loader = false;
           console.log(response.data);
           this.discounts.set(
             response.data.map((item: any) => ({
@@ -73,21 +72,17 @@ export class DiscountsComponent {
     return this.discounts().slice(start, start + this.pageSize);
   }
   nextPage() {
-    this.loader = true;
     setTimeout(() => {
       if ((this.currentPage() + 1) * this.pageSize < this.totalRecords()) {
         this.currentPage.set(this.currentPage() + 1);
       }
-      this.loader = false;
     }, 400);
   }
   prevPage() {
-    this.loader = true;
     setTimeout(() => {
       if (this.currentPage() > 0) {
         this.currentPage.set(this.currentPage() - 1);
       }
-      this.loader = false;
     }, 400);
   }
   showingStart() {
@@ -99,13 +94,14 @@ export class DiscountsComponent {
   }
 
   sendNotification(id: number) {
+    console.log(id);
     this.dialog.open(FaqFormComponent, {
       data: {
-        formType: 'notification',
+        formType: 'success',
       },
     });
   }
-  edit(discount: Discount) {}
+
   addDiscount(updateItem?: any) {
     const popUp = this.dialog.open(FaqFormComponent, {
       data: {
@@ -116,8 +112,6 @@ export class DiscountsComponent {
     popUp.afterClosed().subscribe((result) => {
       if (result === 'refresh') {
         this.getdiscounts();
-      } else {
-        this.loader = false;
       }
     });
   }

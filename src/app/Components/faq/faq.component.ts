@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { LoginService } from '../../Services/login.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FormsModule } from '@angular/forms';
 import { LoaderComponent } from '../loader/loader.component';
 import { FaqFormComponent } from '../faq-form/faq-form.component';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { PopUpComponent } from '../pop-up/pop-up.component';
 
 interface FaqItem {
@@ -34,26 +34,19 @@ interface CategoryWithFaqs {
 @Component({
   selector: 'app-faq',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatIconModule,
-    MatExpansionModule,
-    FormsModule,
-    LoaderComponent,
-  ],
+  imports: [CommonModule, MatIconModule, MatExpansionModule, FormsModule],
   templateUrl: './faq.component.html',
   styleUrl: './faq.component.css',
 })
 export class FaqComponent {
-  categoryInput: string = '';
-  selectedCategoryId: number = 0;
-  loader = true;
+  categoryInput = '';
+  selectedCategoryId = 0;
+
   categories = signal<Category[]>([
     { name: 'booking', id: 1, displayOrder: 2, count: 7, faq: [] },
   ]);
-
-  constructor(private service: LoginService, private dialog: MatDialog) {}
-
+  private service = inject(LoginService);
+  private dialog = inject(MatDialog);
   ngOnInit() {
     this.getCategoriesData();
   }
@@ -61,7 +54,7 @@ export class FaqComponent {
     this.service.getFaqs().subscribe({
       next: (response) => {
         if (response?.data) {
-          this.loader = false;
+          console.log(response.data);
           this.categories.set(
             response.data.map((item: any) => ({
               name: item.name,
@@ -142,22 +135,18 @@ export class FaqComponent {
   }
 
   nextPage() {
-    this.loader = true;
     setTimeout(() => {
       if ((this.currentPage() + 1) * this.pageSize < this.totalRecords()) {
         this.currentPage.set(this.currentPage() + 1);
       }
-      this.loader = false;
     }, 500);
   }
 
   prevPage() {
-    this.loader = true;
     setTimeout(() => {
       if (this.currentPage() > 0) {
         this.currentPage.set(this.currentPage() - 1);
       }
-      this.loader = false;
     }, 500);
   }
 
@@ -180,11 +169,9 @@ export class FaqComponent {
   }
 
   addUpdateCategory(id: number, name: string) {
-    this.loader = true;
-
     const resp = this.service.addCategory(id, name);
     resp.subscribe({
-      next: (response) => {
+      next: () => {
         const popupRef = this.dialog.open(PopUpComponent, {
           width: '500px',
           data: {
@@ -196,13 +183,10 @@ export class FaqComponent {
         popupRef.afterClosed().subscribe((result) => {
           if (result === 'refresh') {
             this.getCategoriesData();
-          } else {
-            this.loader = false;
           }
         });
       },
       error: (error) => {
-        this.loader = false;
         console.error('API error:', error);
 
         this.dialog.open(PopUpComponent, {
@@ -225,7 +209,6 @@ export class FaqComponent {
   }
 
   remove(itemId: number) {
-    this.loader = true;
     const dialogRef = this.dialog.open(PopUpComponent, {
       data: {
         alertType: 'confirm',
@@ -236,8 +219,6 @@ export class FaqComponent {
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'refresh') {
         this.getCategoriesData();
-      } else {
-        this.loader = false;
       }
     });
   }
@@ -246,7 +227,6 @@ export class FaqComponent {
     return item.id;
   }
   addQuestion(updateItem?: any, category?: string) {
-    this.loader = true;
     const dialogRef = this.dialog.open(FaqFormComponent, {
       data: {
         formType: 'faq',
@@ -258,22 +238,24 @@ export class FaqComponent {
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'refresh') {
         this.getCategoriesData();
-      } else {
-        this.loader = false;
       }
     });
   }
   shuffle(id: number, newOrder: number) {
-    this.loader = true;
     console.log('response ius' + id, newOrder);
     this.service.shuffleCategory(id, newOrder).subscribe({
-      next: (resp) => {
-        console.log('Shuffle successful:', resp.message);
+      next: () => {
+        this.dialog.open(PopUpComponent, {
+          width: '500px',
+          data: {
+            alertType: 'success',
+            message: 'Category Swap Successfully',
+          },
+        });
 
         this.getCategoriesData();
       },
       error: (err) => {
-        this.loader = false;
         console.error('Shuffle failed:', err);
         this.dialog.open(PopUpComponent, {
           width: '500px',

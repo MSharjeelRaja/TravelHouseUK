@@ -3,18 +3,16 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  inject,
   Inject,
   OnInit,
-  signal,
   ViewChild,
 } from '@angular/core';
 import { LoaderComponent } from '../loader/loader.component';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
-  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -27,10 +25,7 @@ import {
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {
-  NativeDateAdapter,
-  provideNativeDateAdapter,
-} from '@angular/material/core';
+
 import { PopUpComponent } from '../pop-up/pop-up.component';
 import { Router } from '@angular/router';
 
@@ -38,7 +33,6 @@ import { Router } from '@angular/router';
   selector: 'app-faq-form',
 
   imports: [
-    LoaderComponent,
     CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -51,8 +45,7 @@ import { Router } from '@angular/router';
 })
 export class FaqFormComponent implements OnInit, AfterViewInit {
   isRotated = false;
-  loader: boolean = true;
-  formType: string = '';
+
   updateMode = false;
   isRotatedStatus = false;
   isRotatedCity = false;
@@ -68,16 +61,15 @@ export class FaqFormComponent implements OnInit, AfterViewInit {
   cities = ['London', 'Manchester', 'Birmingham', 'Leeds'];
   continents = ['Europe', 'Asia', 'Africa', 'America'];
   countries = ['UK', 'France', 'Germany', 'USA'];
+  private fb = inject(FormBuilder);
+  private service = inject(LoginService);
+  private router = inject(Router);
+  constructor(public dialogRef: MatDialogRef<FaqFormComponent>) {}
 
-  constructor(
-    private fb: FormBuilder,
-    private service: LoginService,
-    private router: Router,
-    private dialog: MatDialog,
-    private dialogRef: MatDialogRef<FaqFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
-  selectedFileName: string = '';
+  private dialog = inject(MatDialog);
+  public data = Inject(MAT_DIALOG_DATA);
+  formType = 'notification';
+  selectedFileName = '';
 
   @ViewChild('fileInput') fileInput!: ElementRef;
 
@@ -147,7 +139,6 @@ export class FaqFormComponent implements OnInit, AfterViewInit {
     this.service.getFaqs().subscribe({
       next: (response) => {
         if (response?.data) {
-          this.loader = false;
           this.categories = response.data.map((item: any) => ({
             name: item.name,
             id: item.id,
@@ -189,8 +180,6 @@ export class FaqFormComponent implements OnInit, AfterViewInit {
     }
   }
   updateFaq() {
-    this.loader = true;
-
     if (this.faqform.valid) {
       const id = this.data?.updateItem?.id ?? 0;
       const payload = {
@@ -203,10 +192,10 @@ export class FaqFormComponent implements OnInit, AfterViewInit {
           )?.id || null,
       };
 
-      const resp = this.service.Update(payload);
+      const resp = this.service.updateFaq(payload);
 
       resp.subscribe({
-        next: (response) => {
+        next: () => {
           const popupRef = this.dialog.open(PopUpComponent, {
             width: '500px',
             data: {
@@ -217,11 +206,8 @@ export class FaqFormComponent implements OnInit, AfterViewInit {
           popupRef.afterClosed().subscribe(() => {
             this.dialogRef.close('refresh');
           });
-
-          this.loader = false;
         },
         error: (error) => {
-          this.loader = false;
           console.error('API error:', error);
 
           this.dialog.open(PopUpComponent, {
@@ -276,8 +262,6 @@ export class FaqFormComponent implements OnInit, AfterViewInit {
   }
 
   addUpdateDiscount() {
-    this.loader = true;
-
     if (this.discountForm.valid) {
       console.log('Form values:', this.discountForm.value);
       console.log('CODE BEING SENT:', this.discountForm.get('code')?.value);
@@ -321,7 +305,6 @@ export class FaqFormComponent implements OnInit, AfterViewInit {
 
       this.service.addUpdateDiscount(discount).subscribe({
         next: (response) => {
-          this.loader = false;
           console.log('Full API response:', response);
 
           const popupRef = this.dialog.open(PopUpComponent, {
@@ -337,7 +320,6 @@ export class FaqFormComponent implements OnInit, AfterViewInit {
           });
         },
         error: (error) => {
-          this.loader = false;
           console.error('Full error object:', error);
           console.error('Error status:', error.status);
           console.error('Error message:', error.message);
@@ -355,7 +337,6 @@ export class FaqFormComponent implements OnInit, AfterViewInit {
         },
       });
     } else {
-      this.loader = false;
       console.log('Form validation errors:', this.discountForm.errors);
       Object.values(this.discountForm.controls).forEach((control) => {
         console.log(`Control ${control}:`, control.errors);

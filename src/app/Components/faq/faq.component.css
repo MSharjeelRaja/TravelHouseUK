@@ -1,8 +1,9 @@
-.container {
+.con {
   padding: 15px;
-
-  height: 100%;
+  height: 100vh;
+  width: 100%;
 }
+
 .mainContainer {
   display: flex;
   gap: 1rem;
@@ -134,6 +135,8 @@
 }
 .questions {
   background-color: white;
+  border: 1px solid #e5e7eb;
+
   padding: 1rem;
   border-radius: 10px;
 
@@ -271,4 +274,32 @@
 .ShuffleBtn:disabled {
   opacity: 0.6;
   cursor: default;
+}
+@media (max-width: 768px) {
+  .mainContainer {
+    display: flex;
+    flex-direction: column;
+  }
+  .categoriesContainer {
+    width: 100%;
+  }
+  .categoryBtn {
+    width: 100%;
+  }
+  .questionContainer {
+    width: 100%;
+  }
+  .headerWrapper {
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+    .btns {
+      margin-top: 20px;
+    }
+  }
+}
+
+.questionContainer {
+  flex: 1;
+  min-width: 0;
 }
