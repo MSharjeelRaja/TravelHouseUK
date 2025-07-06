@@ -1,23 +1,29 @@
 <div
-  class="mainContainer container-fluid d-flex justify-content-center align-items-center"
+  class="mainContainer container-fluid d-flex justify-content-center align-items-center p-50px sm:!p-[70px] lg:h-[100vh]"
 >
   <div
-    class="containerWrapper row shadow-lg rounded-4 overflow-hidden w-100 flex-column flex-lg-row"
+    class="containerWrapper row shadow-lg rounded-4 overflow-hidden w-100 m-0 flex-column flex-lg-row lg:h-[90vh] overflow-y-auto"
   >
     <section
-      class="col-lg-7 order-1 d-none d-md-block order-lg-2 imageContainer"
+      class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center form-section md:!px-[85px]"
     >
-      <img src="login/Plane.png" alt="Plane" class="img-fluid w-100 h-100" />
-    </section>
-
-    <section
-      class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center form-section"
-    >
-      <header class="mb-4">
-        <img src="logo/Logo.png" alt="Logo" width="100" height="100" />
+      <header class="mb-3">
+        <img
+          src="logo/Logo.png"
+          alt="Logo"
+          width="100"
+          height="100"
+          class="md:w-[155px] md:h-[150px] lg:w-[115px] lg:h-[115px]"
+        />
       </header>
-      <h2 class="h4 fw-bold text-center mb-3">Welcome to the TH-UK CMS</h2>
-      <p class="text-center mb-4 paragraph">
+      <h2
+        class="text-center mb-2 heading !text-[17px] md:!text-[26px] lg:!text-[21px]"
+      >
+        Welcome to the TH-UK CMS
+      </h2>
+      <p
+        class="text-center mb-3 para !text-[9px] md:!text-[16px] lg:!text-[12px]"
+      >
         Access your content management dashboard by securely logging in. Please
         enter your credentials to manage, edit, and publish your content with
         ease.
@@ -25,7 +31,7 @@
 
       <form [formGroup]="loginForm" class="w-100" autocomplete="off">
         <div class="mb-1">
-          <label for="email" class="form-label small">Email</label>
+          <label for="email" class="form-label">Email</label>
           <input
             type="email"
             id="email"
@@ -54,7 +60,7 @@
         </div>
 
         <div class="mb-3 position-relative">
-          <label for="password" class="form-label small">Password</label>
+          <label for="password" class="form-label">Password</label>
 
           <div class="position-relative">
             <input
@@ -117,6 +123,16 @@
           Log In
         </button>
       </form>
+    </section>
+
+    <section
+      class="d-none d-md-flex col-md-7 order-md-1 order-lg-2 imageContainer min-h-[248px] max-h-full"
+    >
+      <img
+        src="login/Plane.png"
+        alt="Plane"
+        class="w-100 h-100 object-cover rounded-3"
+      />
     </section>
   </div>
 </div>
