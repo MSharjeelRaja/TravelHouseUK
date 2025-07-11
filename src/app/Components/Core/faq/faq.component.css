@@ -1,0 +1,271 @@
+.con {
+  padding: 15px;
+
+  height: 100%;
+  width: 100%;
+}
+
+.mainContainer {
+  display: flex;
+  gap: 1rem;
+}
+.headerWrapper {
+  display: flex;
+
+  margin-top: 1rem;
+  margin-bottom: 24px;
+  align-items: center;
+  justify-content: space-between;
+}
+.header {
+  .heading {
+    font-size: 21px;
+    letter-spacing: -0.5px;
+  }
+  .subheading {
+    font-size: 14px;
+    color: #64748b;
+  }
+}
+
+.btns {
+  background-color: #de1054;
+  padding: 0.4rem 0.9rem;
+  font-size: 15px;
+  gap: 5px;
+  color: white;
+  border-radius: 0.5rem;
+  height: 35px;
+  border: none;
+  width: 121px;
+}
+.categoriesContainer {
+  width: 245px;
+  height: 100%;
+  background-color: white;
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  border: 0.8px solid #e5e7eb;
+  flex-direction: column;
+}
+.headerText {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.1px;
+}
+.categories {
+  padding: 0px;
+
+  .count {
+    background-color: #e0e7ff;
+
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    span {
+      color: #5b57f4;
+    }
+  }
+}
+.categoryBtn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 6px;
+  cursor: pointer;
+  padding: 0.4rem 0.6rem;
+  width: 211px;
+  border-radius: 6px;
+
+  &:not(.highlight):hover {
+    background-color: #e0e7ff;
+    .count {
+      background-color: #5b57f4;
+      span {
+        color: white;
+      }
+    }
+  }
+}
+
+.categoryheading {
+  font-size: 0.9rem;
+}
+.addCategory {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.input {
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  box-shadow: none !important;
+  outline: none;
+  font-size: 13px;
+  padding: 7px 12px;
+}
+.addBtn {
+  width: 100%;
+  padding: 0.5rem 0.1rem;
+  color: white;
+  border-radius: 0.5rem;
+  background-color: #5b57f4;
+}
+.addBtn:disabled {
+  background-color: #b0b3d6;
+  cursor: not-allowed;
+}
+.highlight {
+  color: white;
+  background-color: #5b57f4;
+  .count {
+    background-color: white;
+  }
+}
+.questionContainer {
+  width: 80%;
+}
+.questions {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+
+  padding: 1rem;
+  border-radius: 10px;
+
+  margin: 0px 0px 10px 0px;
+}
+.questionsHead {
+  display: flex;
+  justify-content: space-between;
+}
+.questionheader {
+  font-weight: 600;
+}
+.shuffleBtns {
+  display: flex;
+  gap: 6px;
+}
+.ShuffleBtn {
+  width: 33px;
+  height: 33px;
+  background-color: #f5f6fa;
+  border-radius: 7px;
+  border: 2px solid #e2e8f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+.icon {
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.questionSol {
+  display: block;
+  text-align: center;
+  color: #6b7280;
+  font-size: 1rem;
+}
+.ShuffleBtn:disabled {
+  background-color: #f5f6fa;
+  opacity: 0.6;
+}
+.faq-question {
+  padding: 12px;
+
+  margin-top: 8px;
+  border-radius: 5px;
+  display: flex;
+
+  align-items: center;
+}
+
+.faq-arrow {
+  cursor: pointer;
+}
+
+.faq-arrow.rotate {
+  transform: rotate(180deg);
+}
+.noFaq {
+  color: gray;
+  text-align: center;
+}
+.questionwrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  padding: 0 12px;
+  color: #444;
+  font-size: 14px;
+}
+.options {
+  display: flex;
+  gap: 10px;
+}
+.faq-answer.open {
+  max-height: 500px;
+  padding: 12px;
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: padding 0.2s ease;
+  padding: 0 12px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.faq-answer.open {
+  padding: 12px;
+  opacity: 1;
+}
+.img {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .mainContainer {
+    display: flex;
+    flex-direction: column;
+  }
+  .categoriesContainer {
+    width: 100%;
+  }
+  .categoryBtn {
+    width: 100%;
+  }
+  .questionContainer {
+    width: 100%;
+  }
+  .headerWrapper {
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+    .btns {
+      margin-top: 20px;
+    }
+  }
+}
+
+.questionContainer {
+  flex: 1;
+  min-width: 0;
+}

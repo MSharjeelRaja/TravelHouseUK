@@ -1,0 +1,100 @@
+<div class="mainContainer px-[20px] py-[15px] gap-3">
+  <div class="headers">
+    <p class="text-[21px] fw-bold m-0">Overview</p>
+    <span class="text-gray-500 text-[14px]"
+      >Welcome to your Travelhouse UK admin dashboard</span
+    >
+  </div>
+  <app-card [data]="tabledata"></app-card>
+  <div class="bookingInfo cards px-[12px] py-[16px] my-[16px] rounded-xl">
+    <div class="optionsHeaders flex justify-between mb-1">
+      <span class="head text-[15px] font-[700]">Recent Flight Bookings</span>
+      <span class="viewall cursor-pointer text-[13px]">View all</span>
+    </div>
+    <div class="flights">
+      <div
+        class="flightRow flex flex-col sm:flex-row sm:justify-between border-gray-300 border-b-1 py-2 gap-1.5 last:border-b-0"
+      >
+        <div class="left">
+          <p class="m-0 text-[13px] sm:text-[14px] font-[400]">
+            London to Dubai
+          </p>
+          <p class="m-0 text-gray-500 sm:text-[12px] text-[11px] font-[300]">
+            John Smith
+          </p>
+        </div>
+        <div class="right text-right">
+          <p class="m-0 text-[13px] sm:text-[14px] font-[400]">
+            {{ 782 | currency : "GBP" }}
+          </p>
+          <p class="m-0 text-gray-500 text-[11px] sm:text-[12px] font-[300]">
+            Today
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="flightRow flex flex-col sm:flex-row sm:justify-between border-gray-300 border-b-1 py-2 gap-1.5 last:border-b-0"
+      >
+        <div class="left">
+          <p class="m-0 text-[13px] sm:text-[14px] font-[400]">
+            London to New York
+          </p>
+          <p class="m-0 text-gray-500 text-[11px] sm:text-[12px] font-[300]">
+            Sarah Johnson
+          </p>
+        </div>
+        <div class="right text-right">
+          <p class="m-0 text-[13px] sm:text-[14px] font-[400]">
+            {{ 954 | currency : "GBP" }}
+          </p>
+          <p class="m-0 text-gray-500 text-[11px] sm:text-[12px] font-[300]">
+            Yesterday
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="flightRow flex flex-col sm:flex-row sm:justify-between border-gray-300 border-b-1 py-2 gap-1.5 last:border-b-0"
+      >
+        <div class="left">
+          <p class="m-0 text-[13px] sm:text-[14px] font-[400]">
+            Manchester to Paris
+          </p>
+          <p class="m-0 text-gray-500 text-[11px] sm:text-[12px] font-[300]">
+            Mohammed Ali
+          </p>
+        </div>
+        <div class="right text-right">
+          <p class="m-0 text-[13px] sm:text-[14px] font-[400]">
+            {{ 325 | currency : "GBP" }}
+          </p>
+          <p class="m-0 text-gray-500 text-[11px] sm:text-[12px] font-[300]">
+            2 days ago
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="flightRow flex flex-col sm:flex-row sm:justify-between border-gray-300 border-b-1 py-2 gap-1.5 last:border-b-0"
+      >
+        <div class="left">
+          <p class="m-0 text-[13px] sm:text-[14px] font-[400]">
+            Edinburgh to Rome
+          </p>
+          <p class="m-0 text-gray-500 text-[11px] sm:text-[12px] font-[300]">
+            Emily Chen
+          </p>
+        </div>
+        <div class="right text-right">
+          <p class="m-0 text-[13px] sm:text-[14px] font-[400]">
+            {{ 412 | currency : "GBP" }}
+          </p>
+          <p class="m-0 text-gray-500 text-[11px] sm:text-[12px] font-[300]">
+            3 days ago
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

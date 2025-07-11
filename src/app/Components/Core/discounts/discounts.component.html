@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="headerWrapper">
+    <div class="header">
+      <span class="heading fw-bold">Discounts</span>
+      <span class="subheading d-block">
+        Manage promotional discounts for flights and destinations
+      </span>
+    </div>
+    <button class="btns" (click)="addDiscount()">+ Add New Discount</button>
+  </div>
+  <div class="discountContainer">
+    <div class="tabelContainer">
+      <app-table
+        [columns]="tableColumns"
+        [data]="discounts()"
+        [actions]="tableActions"
+        (actionClick)="handleTableAction($event)"
+      >
+      </app-table>
+      <app-pagination
+        [paginationData]="{
+          pageNumber: pageNumber,
+          pageSize: pageSize,
+          totalPages: totalPages,
+          totalRecords: totalRecords
+        }"
+        (pageChange)="handlePaginationChange($event)"
+      ></app-pagination>
+    </div>
+  </div>
+</div>

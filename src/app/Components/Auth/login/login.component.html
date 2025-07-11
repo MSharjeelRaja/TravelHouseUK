@@ -1,0 +1,136 @@
+<div
+  class="mainContainer d-flex justify-content-center align-items-center p-[30px] md:!p-[70px] lg:h-[100vh]"
+>
+  <div
+    class="containerWrapper row shadow-lg rounded-4 overflow-hidden w-100 flex-column flex-lg-row lg:h-[90vh] overflow-y-auto"
+  >
+    <section
+      class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center form-section md:!px-[85px]"
+    >
+      <header class="mb-3">
+        <img
+          src="logo/Logo.png"
+          alt="Logo"
+          width="100"
+          height="100"
+          class="md:w-[155px] md:h-[150px] lg:w-[100px] lg:h-[100px]"
+        />
+      </header>
+      <h2
+        class="text-center mb-2 heading !text-[17px] md:!text-[26px] lg:!text-[21px]"
+      >
+        Welcome to the TH-UK CMS
+      </h2>
+      <p
+        class="text-center mb-3 para !text-[9px] md:!text-[16px] lg:!text-[12px]"
+      >
+        Access your content management dashboard by securely logging in. Please
+        enter your credentials to manage, edit, and publish your content with
+        ease.
+      </p>
+
+      <form [formGroup]="loginForm" class="w-100" autocomplete="off">
+        <div class="mb-[1px]">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            formControlName="email"
+            class="form-control input-control"
+            [ngClass]="{
+              invalid:
+                loginForm.get('email')?.touched &&
+                loginForm.get('email')?.invalid
+            }"
+            placeholder="Enter your email"
+          />
+
+          <div class="invalid-feedback min-h-[10px]">
+            <span
+              *ngIf="loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.touched"
+            >
+              Email is required.
+            </span>
+            <span
+              *ngIf="loginForm.get('email')?.errors?.['email'] && loginForm.get('email')?.touched"
+            >
+              Enter a valid email.
+            </span>
+          </div>
+        </div>
+
+        <div class="mb-[1px]">
+          <label for="password" class="form-label">Password</label>
+          <div class="position-relative">
+            <input
+              [type]="hidePassword ? 'password' : 'text'"
+              id="password"
+              name="password"
+              formControlName="password"
+              class="form-control input-control"
+              [ngClass]="{
+                invalid:
+                  loginForm.get('password')?.touched &&
+                  loginForm.get('password')?.invalid
+              }"
+              placeholder="Enter your password"
+            />
+            <button
+              type="button"
+              (click)="hidePassword = !hidePassword"
+              class="passwordShow"
+            >
+              <i
+                *ngIf="loginForm.get('password')?.valid"
+                [ngClass]="hidePassword ? 'bi-eye' : 'bi-eye-slash'"
+              ></i>
+            </button>
+          </div>
+
+          <small class="invalid-feedback min-h-[10px]">
+            <span
+              *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']"
+            >
+              Password is required.
+            </span>
+            <span
+              *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['minlength']"
+            >
+              Password must be at least 6 characters.
+            </span>
+          </small>
+        </div>
+
+        <div class="form-check align-items-center mb-3">
+          <input
+            type="checkbox"
+            id="rememberMe"
+            class="form-check-input"
+            formControlName="rememberMe"
+          />
+          <label for="rememberMe" class="form-check-label">Remember Me</label>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-primary w-100"
+          (click)="login()"
+          [disabled]="loginForm.invalid"
+        >
+          Log In
+        </button>
+      </form>
+    </section>
+
+    <section
+      class="d-none d-md-flex col-md-7 order-md-1 order-lg-2 imageContainer min-h-[248px] max-h-full p-[12px]"
+    >
+      <img
+        src="login/Plane.png"
+        alt="Plane"
+        class="w-100 h-100 object-cover rounded-3"
+      />
+    </section>
+  </div>
+</div>

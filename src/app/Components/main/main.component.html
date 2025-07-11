@@ -1,111 +1,54 @@
 <mat-sidenav-container class="main">
   <mat-sidenav mode="side" opened class="sidenavContainer">
-    <div class="sideNav d-flex flex-column h-100">
-      <h1 class="header">Dashboard</h1>
-      <div class="hLine"></div>
+    <div class="sideNav bg-[#5b57f4] d-flex flex-column h-screen">
+      <div class="bg-[#5b57f4] pb-[0px]">
+        <h1 class="header">Dashboard</h1>
+        <div class="hLine border-[1.4px] border-white"></div>
+      </div>
 
-      <a
-        routerLink="/main/dis"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        class="nav-button"
-        style="cursor: pointer"
-        #rlaLogin="routerLinkActive"
-      >
-        <img
-          [src]="rlaLogin.isActive ? 'logo/overview.png' : 'logo/overview.png'"
-          alt="overview"
-          class="icon"
-        />
-        <span>Overview</span>
-      </a>
-      <span class="text-white my-2 font-medium subheader"
-        >Content Managemt</span
-      >
-      <a class="nav-button">
-        <img [src]="'/logo/notiifcation.png'" alt="notification" class="icon" />
-        <span> Push Notifications</span>
-      </a>
+      <div class="flex flex-col overflow-y-auto navOptions">
+        @for (item of routes; track $index) { @if ($index === 1) {
+        <span class="subheader">
+          {{ "Content Management" | uppercase }}
+        </span>
 
-      <a class="nav-button">
-        <img [src]="'/logo/Component 1.png'" alt="notification" class="icon" />
-        <span> Flight Bookings</span>
-      </a>
-
-      <a class="nav-button">
-        <img [src]="'/logo/explore.png'" alt="notification" class="icon" />
-        <span> Search Records</span>
-      </a>
-      <a class="nav-button">
-        <img [src]="'/logo/splash2.png'" alt="notification" class="icon" />
-        <span> Splash Screens</span>
-      </a>
-
-      <a class="nav-button">
-        <img [src]="'/logo/splash2.png'" alt="notification" class="icon" />
-        <span>Home Banners</span>
-      </a>
-      <a
-        routerLink="/main/faq"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        class="nav-button"
-        style="cursor: pointer"
-        #rlaDiscount="routerLinkActive"
-      >
-        <img
-          [src]="
-            rlaDiscount.isActive ? '/logo/faqhighlight.png' : '/logo/faq.png'
+        } @if ($index === 10) {
+        <span class="subheader">
+          {{ "Payment Management" | uppercase }}
+        </span>
+        } @if ($index === 12 ) {
+        <span class="subheader">
+          {{ "Settings" | uppercase }}
+        </span>
+        }
+        <a
+          [routerLink]="item.route"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-button"
+          [class.disabled-link]="
+            !(
+              item.label == 'FAQ' ||
+              item.label == 'Discounts' ||
+              item.label == 'Overview'
+            )
           "
-          alt="faq"
-          class="icon"
-        />
-        <span> FAQ</span>
-      </a>
-
-      <a class="nav-button">
-        <img [src]="'/logo/explore.png'" alt="notification" class="icon" />
-        <span> Explore Section</span>
-      </a>
-      <a class="nav-button">
-        <img [src]="'/logo/settings.png'" alt="notification" class="icon" />
-        <span> General Settings</span>
-      </a>
-      <a
-        routerLink="/main/discount"
-        routerLinkActive="active"
-        style="cursor: pointer"
-        [routerLinkActiveOptions]="{ exact: true }"
-        class="nav-button"
-        #rlaDiscount="routerLinkActive"
-      >
-        <img
-          [src]="
-            rlaDiscount.isActive
-              ? '/logo/discounts.png'
-              : '/logo/discounthighlight.png'
-          "
-          alt="Discount"
-          class="icon"
-        />
-        <span>Discounts</span>
-      </a>
-      <span class="text-white my-2 font-medium subheader"
-        >PAYMENT MANAGMENT</span
-      >
-      <a class="nav-button">
-        <img [src]="'/logo/paymnet.png'" alt="Discount" class="icon" />
-        <span> Payment Gateways</span>
-      </a>
-      <a class="nav-button">
-        <img [src]="'/logo/wallet.png'" alt="Discount" class="icon" />
-        <span> Payment Plans</span>
-      </a>
-      <span class="text-white my-2 font-medium subheader">Settings</span>
-      <a class="nav-button">
-        <img [src]="'/logo/settings.png'" alt="notification" class="icon" />
-        <span>General Settings</span>
-      </a>
+          #rla="routerLinkActive"
+          [ngStyle]="{
+            'background-color': rla.isActive ? 'white' : 'transparent'
+          }"
+        >
+          <i
+            class="fa-solid icon"
+            [ngClass]="item.icon"
+            [style.color]="rla.isActive ? '#5b57f4' : 'white'"
+          ></i>
+          <span [style.color]="rla.isActive ? '#5b57f4' : 'white'">
+            {{ item.label }}
+          </span>
+        </a>
+        }
+      </div>
     </div>
   </mat-sidenav>
 
@@ -125,9 +68,7 @@
             <mat-icon class="option-icon">lock</mat-icon>
             Change Password
           </li>
-
           <hr class="line" />
-
           <li (click)="logout()">
             <mat-icon class="option-icon">logout</mat-icon>
             Logout
@@ -135,6 +76,7 @@
         </ul>
       </div>
     </nav>
+
     <div class="content-wrapper">
       <router-outlet></router-outlet>
     </div>

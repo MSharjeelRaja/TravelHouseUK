@@ -1,0 +1,38 @@
+<div class="table-wrapper">
+  <table class="table">
+    <thead>
+      <tr>
+        <th *ngFor="let col of columns">{{ col.header }}</th>
+        <th *ngIf="actions.length > 0">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of data">
+        <td *ngFor="let col of columns">
+          <ng-container [ngSwitch]="col.type">
+            <span *ngSwitchCase="'date'">{{
+              item[col.key] | date : col.format
+            }}</span>
+            <app-status
+              *ngSwitchCase="'status'"
+              [status]="item[col.key]"
+            ></app-status>
+
+            <span *ngSwitchDefault>{{ item[col.key] }}</span>
+          </ng-container>
+        </td>
+        <td *ngIf="actions.length > 0">
+          <div class="options">
+            <button
+              *ngFor="let action of actions"
+              (click)="handleAction(action.name, item)"
+              [title]="action.label || action.name"
+            >
+              <img [src]="action.icon" [alt]="action.name" width="16" />
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

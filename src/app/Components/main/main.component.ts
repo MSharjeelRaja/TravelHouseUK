@@ -10,8 +10,6 @@ import {
   RouterModule,
   RouterOutlet,
 } from '@angular/router';
-import { PopUpComponent } from '../pop-up/pop-up.component';
-import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
   selector: 'app-main',
@@ -31,6 +29,24 @@ import { LoaderComponent } from '../loader/loader.component';
   styleUrl: './main.component.css',
 })
 export class MainComponent {
+  routes = [
+    { route: '/main/overview', label: 'Overview', icon: 'fa-house' },
+    { route: '', label: 'Push Notifications', icon: 'fa-bell' },
+    { route: '', label: 'Flight Bookings', icon: 'fa-shopping-cart' },
+    { route: '', label: 'Search Records', icon: 'fa-search' },
+    { route: '', label: 'Splash Screens', icon: 'fa-image' },
+    { route: '', label: 'Home Banners', icon: 'fa-image' },
+    { route: '/main/faq', label: 'FAQ', icon: 'fa-question-circle' },
+    { route: '', label: 'Explore Section', icon: 'fa-search' },
+    { route: '/main/discount', label: 'Discounts', icon: 'fa-percent' },
+    { route: '', label: 'Loyalty Benefits', icon: 'fa-compass' },
+
+    { route: '', label: 'Payment Gateways', icon: 'fa-toggle-on' },
+    { route: '', label: 'Payment Plans', icon: 'fa-wallet' },
+
+    { route: '', label: 'General Settings', icon: 'fa-cog' },
+  ];
+
   showOptions: boolean = false;
   constructor(public router: Router) {}
 

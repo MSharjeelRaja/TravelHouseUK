@@ -1,0 +1,33 @@
+<div
+  class="flightCards grid grid-col-1 lg:grid-cols-2 gap-[10px] lg:gap-[24px] my-[25px]"
+>
+  @for (item of data; track $index) {
+  <div
+    class="cards flex items-center justify-between p-3 border border-gray-300 rounded-lg bg-white"
+  >
+    <div class="info flex flex-col">
+      <p class="text-[16px] font-semibold m-0">{{ item.label }}</p>
+      <p class="text-[20px] font-bold m-0">{{ item.count | number }}</p>
+      <small class="text-gray-500 !text-[12px] mt-1">{{ item.detail }}</small>
+      <span
+        class="flex text-[12px] text-green-500 gap-1"
+        [ngStyle]="{ color: item.grow ? '' : 'gray' }"
+        ><i
+          class="bi"
+          [ngClass]="item.grow ? 'bi-arrow-up' : 'bi-arrow-right'"
+        ></i>
+        {{ item.percentage }}</span
+      >
+    </div>
+    <div
+      class="logo p-3 flex justify-center items-center rounded-4 w-[70px] h-[70px] md:w-[90px] md:h-[90px]"
+    >
+      <img
+        src="{{ item.image }}"
+        class="w-[35px] h-[35px] sm:h-[45px] sm:w-[45px]"
+        alt=""
+      />
+    </div>
+  </div>
+  }
+</div>

@@ -1,10 +1,12 @@
 import { Routes } from '@angular/router';
 
-import { DiscountsComponent } from './Components/discounts/discounts.component';
-import { MainComponent } from './Components/main/main.component';
-import { FaqComponent } from './Components/faq/faq.component';
+import { DiscountsComponent } from './Components/Core/discounts/discounts.component';
+
+import { FaqComponent } from './Components/Core/faq/faq.component';
 import { routeGuard } from './Guards/route.guard';
 import { loginGuard } from './Guards/login.guard';
+import { OverviewComponent } from './Components/Core/overview/overview.component';
+import { MainComponent } from './Components/main/main.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -13,16 +15,17 @@ export const routes: Routes = [
     component: MainComponent,
     canActivate: [routeGuard],
     children: [
-      { path: '', redirectTo: 'faq', pathMatch: 'full' },
+      { path: '', redirectTo: 'overview', pathMatch: 'full' },
       { path: 'discount', component: DiscountsComponent },
       { path: 'faq', component: FaqComponent },
+      { path: 'overview', component: OverviewComponent },
     ],
   },
   {
     path: 'auth/login',
     canActivate: [loginGuard],
     loadComponent: () =>
-      import('./Components/login/login.component').then(
+      import('./Components/Auth/login/login.component').then(
         (m) => m.LoginComponent
       ),
   },

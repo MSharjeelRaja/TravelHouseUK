@@ -1,0 +1,288 @@
+.formContainer {
+  background-color: white;
+  border-radius: 30px;
+}
+.Form {
+  padding: 24px 70px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  .formHeaders {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  h2 {
+    font-size: 23px;
+    font-weight: 600;
+    margin: 0;
+  }
+  span {
+    font-size: 14px;
+  }
+
+  .input-control {
+    padding: 7px 12px;
+    font-size: 13px;
+    width: 430px;
+
+    margin: 3px 0px;
+  }
+  .discount span {
+    font-size: 12px;
+    color: rgb(33, 37, 41);
+    margin: 0;
+  }
+
+  .discountForm {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0rem 0.9rem;
+
+    justify-content: flex-start;
+
+    .email-wrapper {
+      flex: 0 0 calc(50% - 0.75rem);
+      max-width: calc(50% - 0.75rem);
+    }
+
+    .input-control {
+      width: 215px;
+      padding: 7px 12px;
+    }
+  }
+
+  .input-control:focus {
+    box-shadow: none !important;
+    border-color: rgb(222, 226, 230);
+  }
+}
+.email-wrapper {
+  margin-bottom: 2px;
+}
+label {
+  font-size: 13px;
+}
+.invalid {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 1rem;
+  border-color: rgb(220, 53, 69);
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+.form-check label {
+  font-size: 13px;
+  margin-top: 4px;
+  font-weight: 400;
+  color: black;
+}
+.form-check-input {
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+}
+.form-check-input:checked {
+  background-color: #5b57f4;
+  border-color: #5b57f4;
+}
+.text-danger span {
+  font-size: 12px;
+  font-weight: 400;
+}
+.text-danger {
+  min-height: 18px;
+  display: block;
+}
+
+.btn {
+  width: 100%;
+  margin-top: 10px;
+  background-color: #5b57f4;
+}
+
+button.mat-button.bg-white {
+  color: #2563eb !important;
+}
+@media (max-width: 768px) {
+}
+.custom-datepicker-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 212px;
+}
+
+.custom-datepicker-wrapper .input-control {
+  width: 100%;
+  padding: 7px 12px;
+  font-size: 13px;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  height: 38px;
+}
+
+.custom-datepicker-toggle {
+  position: absolute;
+  right: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.custom-datepicker-wrapper .input-control:focus {
+  outline: none !important;
+}
+
+::ng-deep .mat-datepicker-content {
+  width: 260px !important;
+  background-color: white !important;
+
+  border-radius: 8px;
+  overflow: visible;
+}
+
+::ng-deep .mat-datepicker-content {
+  width: 250px !important;
+  background-color: white !important;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2) !important;
+
+  font-family: "Roboto", sans-serif !important;
+}
+
+::ng-deep .mat-calendar {
+  width: 100% !important;
+  min-width: 100% !important;
+  font-family: "Roboto", sans-serif !important;
+}
+
+.input-control {
+  color: rgb(0, 0, 0);
+}
+
+.input-control::placeholder {
+  color: #6b7b90;
+  opacity: 1;
+}
+.discountForm .email-wrapper {
+  margin-bottom: 0px;
+}
+.imageContainer {
+  border: 2px dashed #d6e4f0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  transition: border-color 0.4s ease-in-out;
+  cursor: pointer;
+  padding: 16px;
+  width: 430px;
+  p {
+    margin-bottom: 0.25rem;
+    font-size: 12px;
+  }
+  span {
+    font-size: 10px;
+    color: #909090;
+  }
+  .image {
+    background-color: #eaf1ff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 20px;
+      height: 20px;
+    }
+    margin-bottom: 1rem;
+  }
+}
+.imageContainer:hover {
+  border-color: #2563eb;
+}
+
+.notificationForm .btn {
+  margin-top: 10px;
+}
+.selected {
+  color: #2563eb;
+}
+@media (max-width: 768px) {
+  .Form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .discountForm,
+  .faqForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .email-wrapper {
+    width: 100% !important;
+    flex-direction: column !important;
+    margin-bottom: 16px;
+  }
+
+  .form-control,
+  .input-control,
+  select,
+  textarea,
+  input {
+    width: 300px !important;
+    max-width: 100%;
+    font-size: 14px !important;
+    padding: 8px 10px;
+  }
+  .discountForm {
+    .input-control {
+      width: 700px !important;
+    }
+  }
+  .formHeaders h2,
+  .formHeaders span {
+    font-size: 16px !important;
+    text-align: center;
+  }
+
+  .btn-primary {
+    width: 90%;
+    font-size: 14px;
+    padding: 10px;
+    margin-top: 10px;
+  }
+
+  .faq-arrow {
+    right: 12px !important;
+    top: 32px !important;
+    width: 14px;
+  }
+
+  .imageContainer {
+    flex-direction: column;
+    text-align: center;
+    width: 90%;
+    margin: auto;
+  }
+
+  .imageContainer img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .selected {
+    font-size: 14px;
+  }
+}
+select {
+  cursor: pointer;
+}

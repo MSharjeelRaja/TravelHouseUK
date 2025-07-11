@@ -1,0 +1,35 @@
+.custom-paginator {
+  display: flex;
+  justify-content: space-between;
+}
+.pagination-info {
+  color: #64748b;
+  font-size: 14px;
+  text-align: left;
+}
+.pagination-buttons {
+  display: flex;
+  gap: 10px;
+}
+.ShuffleBtn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.ShuffleBtn {
+  width: 33px;
+  height: 33px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+  border-radius: 8px;
+  border: 2px solid #e2e8f0;
+  background-color: #f5f6fa;
+}
+.icon {
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

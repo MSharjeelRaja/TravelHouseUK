@@ -7,8 +7,7 @@ import {
   Router,
   RouterOutlet,
 } from '@angular/router';
-import { LoaderComponent } from './Components/loader/loader.component';
-import { LoaderService } from './Services/loader.service';
+import { LoaderComponent } from './Components/Shared/loader/loader.component';
 
 @Component({
   selector: 'app-root',
