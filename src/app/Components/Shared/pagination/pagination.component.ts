@@ -63,7 +63,9 @@ export class PaginationComponent implements OnChanges {
   }
 
   showingEnd() {
-    const end = (this.currentPage() + 1) * this.paginationData.pageSize;
-    return Math.min(end, this.paginationData.totalRecords);
+    return (
+      this.currentPage() * this.paginationData.pageSize +
+      this.paginationData.pageSize
+    );
   }
 }

@@ -203,7 +203,7 @@
             discountForm.get('status')?.invalid
         }"
       >
-        <option value="" disabled selected hidden>Select Statuss</option>
+        <option value="" disabled selected hidden>Select Status</option>
         <option value="Active">Active</option>
         <option value="InActive">InActive</option>
       </select>
@@ -279,7 +279,7 @@
               discountForm.get('validTo')?.touched &&
               discountForm.get('validTo')?.invalid
           }"
-          class="input-control"
+          class="input-control cursor-pointer"
           formControlName="validTo"
           placeholder="Valid to"
           [matDatepicker]="picker"
@@ -320,9 +320,6 @@
           }"
         >
           <option value="" disabled selected hidden>Select Continent</option>
-          <option *ngFor="let cont of continents" [value]="cont">
-            {{ cont }}
-          </option>
         </select>
         <img
           class="faq-arrow"

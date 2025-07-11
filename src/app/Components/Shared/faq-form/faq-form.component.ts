@@ -121,10 +121,10 @@ export class FaqFormComponent {
           usageLimit: this.data.updateItem.limit,
           amount: this.data.updateItem.discountAmount,
           validTo: this.data.updateItem.validTo,
-          continent: this.data.updateItem.continent,
+          // continent: this.data.updateItem.continent,
 
-          country: this.data.updateItem.country,
-          city: this.data.updateItem.city,
+          // country: this.data.updateItem.country,
+          // city: this.data.updateItem.city,
           email: this.data.updateItem.email,
         });
       }
